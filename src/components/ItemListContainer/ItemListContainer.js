@@ -1,8 +1,8 @@
 import React from 'react';
-import ItemCount from '../ItemCount/ItemCount';
+import Item from '../Item/Item';
 
 const ItemListContainer = ({titulo,addCantidadCarrito}) => {
-    const items = [
+    const productos = [
         {id: 0, nombre:"Producto 1", stock:4},
         {id: 1, nombre:"Producto 2", stock:5},
         {id: 2, nombre:"Producto 3", stock:1},
@@ -16,8 +16,8 @@ const ItemListContainer = ({titulo,addCantidadCarrito}) => {
             <h2>{titulo}</h2>
             <div className="productos">
                 <div className="row">
-                    {items.map(producto =>(
-                        <ItemCount key={producto.id} nombre={producto.nombre} stock={producto.stock} initial={1} addCantidadCarrito={addCantidadCarrito} />
+                    {productos.map(producto =>(
+                        <Item key={producto.id} producto={producto} addCantidadCarrito={addCantidadCarrito} />
                     ))}
                 </div>
             </div>

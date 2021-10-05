@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 
-const CartWidget = () => {
+const CartWidget = ({cantidadCarrito}) => {
   return (
     <div className="cart bg-light">
       <div className="cart-button d-flex align-items-center px-2">
@@ -15,7 +15,7 @@ const CartWidget = () => {
         >
           <FontAwesomeIcon icon={faShoppingBag}></FontAwesomeIcon>
         </button>
-          <span className="count">1</span>
+          <span className="count">{cantidadCarrito}</span>
       </div>
       <div
         className="offcanvas offcanvas-end"

@@ -2,7 +2,7 @@ import React from 'react';
 
 import CartWidget from '../CartWidget/CartWidget'
 
-const NavBar = () => {
+const NavBar = ({cantidadCarrito}) => {
     return ( 
         <div className="container-fluid d-flex px-0 fixed-top">
             <nav className="navbar navbar-light navbar-expand-md bg-light w-100">
@@ -41,7 +41,9 @@ const NavBar = () => {
                 </div>
             </div>
             </nav>
-            <CartWidget />
+            <CartWidget
+                cantidadCarrito={cantidadCarrito}
+            />
         </div>
      )
 };

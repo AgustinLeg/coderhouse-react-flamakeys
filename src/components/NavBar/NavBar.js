@@ -7,7 +7,7 @@ const NavBar = ({cantidadCarrito}) => {
         <div className="container-fluid d-flex px-0 fixed-top">
             <nav className="navbar navbar-light navbar-expand-md bg-light w-100">
             <div className="container-fluid">
-                <a className="navbar-brand mb-0 h1" href="#!">BB Fotografia</a>
+                <a className="navbar-brand mb-0 h1" href="/">BB Fotografia</a>
                 <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
@@ -16,7 +16,7 @@ const NavBar = ({cantidadCarrito}) => {
                 <div className="offcanvas-body w-100">
                     <ul className="navbar-nav justify-content-center flex-grow-1 pe-3">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="#!">Inicio</a>
+                            <a className="nav-link active" aria-current="page" href="/">Inicio</a>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="/productos" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -15,7 +15,7 @@ const ItemCount = ({stock,initial,addCantidadCarrito}) => {
     }
 
   return (
-    <div className="container__quantity">
+    <div className="container__quantity "style={{"max-width":"200px"}}>
       <div className="quantity d-flex justify-content-center mb-3">
         <button className="btn btn-outline-primary" onClick={removeCant}>
           -

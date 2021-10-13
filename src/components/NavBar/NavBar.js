@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import CartWidget from '../CartWidget/CartWidget'
 
 const NavBar = ({cantidadCarrito}) => {
     return ( 
-        <div className="container-fluid d-flex px-0 fixed-top">
+        <div className="container d-flex px-0">
             <nav className="navbar navbar-light navbar-expand-md bg-light w-100">
             <div className="container-fluid">
-                <a className="navbar-brand mb-0 h1" href="/">BB Fotografia</a>
+                <h1><a className="navbar-brand mb-0 h1" href="/" style={{fontFamily:"Fraunces,sans-serif",fontWeight:"900"}}><span  className="text-danger">Flama</span>Keys</a></h1>
                 <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
@@ -16,20 +17,13 @@ const NavBar = ({cantidadCarrito}) => {
                 <div className="offcanvas-body w-100">
                     <ul className="navbar-nav justify-content-center flex-grow-1 pe-3">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="/">Inicio</a>
-                        </li>
-                        <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="/productos" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Productos
-                            </a>
-                            <ul className="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-                            <li><a className="dropdown-item" href="#!">Producto1</a></li>
-                            <li><a className="dropdown-item" href="#!">Producto2</a></li>
-                            <li><a className="dropdown-item" href="#!">Producto3</a></li>
-                            </ul>
+                            <Link className="nav-link" to="/">Inicio</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#!">Info & Ayuda</a>
+                            <Link className="nav-link" to="/categoria/teclados">Teclados</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/categoria/mouse">Mouse</Link>
                         </li>
                     </ul>
                  </div>

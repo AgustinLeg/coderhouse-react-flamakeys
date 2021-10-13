@@ -1,35 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import ItemDetail from "../ItemDetail/ItemDetail";
 import Spinner from "../Stateless/Spinner/Spinner";
 
-const ItemDetailContainer = ({ addCantidadCarrito }) => {
-  const [item, setItem] = useState(null);
-  const getItems = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve({
-        id: 0,
-        nombre: "Foto Simple",
-        precio: 100,
-        descripcion:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, deserunt similique aliquam temporibus eaque autem aspernatur ipsum animi eveniet, totam perspiciatis atque laudantium quam commodi unde quis, asperiores ex nesciunt.",
-        img: "https://bbfotografia.com/wp-content/uploads/2021/01/SIMPLES.jpg",
-        stock: 4,
-      });
-    }, 2000);
-  });
-
-  getItems.then((res) => setItem(res));
-
+const ItemDetailContainer = ({ items, addCantidadCarrito }) => {
+  const { id } = useParams();
+  const [itemdetail, setItemDetail] = useState(null);
+  const [cargando, setCargando] = useState(true);
+  useEffect(() => {
+    const getItem = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if(items.length > 0){
+          const item = items.find((i) => i.id === Number(id));
+          if(item) {
+            resolve(item);
+          }else{
+            reject('no encontramos el producto')
+            setItemDetail(null)
+          }
+        }
+      }, 1500);
+    });
+    getItem
+      .then((res) =>{
+        setItemDetail(res)
+        setCargando(false)
+      })
+      .catch((err) => console.error(err))
+  }, [items,id]);
+  
   return (
     <div
-      className="container-fluid d-flex align-items-center align-middle"
+      className="container-fluid align-middle flex-column mt-5 pt-5"
       style={{ height: "100vh" }}
     >
-      {item ? (
-        <ItemDetail item={item} addCantidadCarrito={addCantidadCarrito} />
-      ) : (
-        <Spinner />
-      )}
+      {cargando
+        ? <Spinner />
+        : <> 
+          <Link to="/" className="btn btn-danger my-5">
+              Volver
+          </Link>
+          {itemdetail
+            ? <ItemDetail
+                itemdetail={itemdetail}
+                addCantidadCarrito={addCantidadCarrito}
+              />
+            : <h2 className="text-center mt-5">Ups no pudimos encontrar el producto que estaba buscando </h2>
+          }
+        </>
+      }
+      
     </div>
   );
 };

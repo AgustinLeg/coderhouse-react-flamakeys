@@ -15,9 +15,9 @@ const ItemCount = ({stock,initial,addCantidadCarrito}) => {
     }
 
   return (
-    <div className="container__quantity "style={{"max-width":"200px"}}>
+    <div className="container__quantity "style={{"maxWidth":"200px"}}>
       <div className="quantity d-flex justify-content-center mb-3">
-        <button className="btn btn-outline-primary" onClick={removeCant}>
+        <button className="btn btn-outline-danger" onClick={removeCant}>
           -
         </button>
         <input
@@ -28,13 +28,13 @@ const ItemCount = ({stock,initial,addCantidadCarrito}) => {
           max={stock}
           readOnly
         />
-        <button className="btn btn-outline-primary" onClick={addCant}>
+        <button className="btn btn-outline-danger" onClick={addCant}>
           +
         </button>
       </div>
       <button
         disabled={stock ? false : true}
-        className="btn btn-primary"
+        className="btn btn-danger"
         onClick={() => addCantidadCarrito(cantidad)}
       >
         {stock ? "Añadir al carrito" : "No tenemos mas :("}

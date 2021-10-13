@@ -1,19 +1,21 @@
 import React from 'react';
+import { Link} from 'react-router-dom';
 
 
 const Item = ({item}) => {
-    const {nombre,stock,img} = item
+    const {nombre,stock,img,precio,id} = item
     return (
-        <div className="col-sm-12 col-md-5 col-lg-3 m-4">
-            <div className="card" style={{width: '18rem'}}>
-                <img src={img} className="card-img-top" alt="..." />
-                <div className="card-body text-center">
-                    <h5 className="card-title">{nombre}</h5>
-                    <a href="#!" className="btn btn-primary my-4">Ver detalle del producto</a>
-                    <p >Stock disponible : ${stock}</p>
+            <div className="col-sm-12 col-md-6 col-lg-3 m-4">
+                <div className="card m-auto" style={{width: '18rem'}}>
+                    <img src={img} className="card-img-top" alt={`imagen de ${nombre}`} />
+                    <div className="card-body text-center bg-light">
+                        <h5 className="card-title">{nombre}</h5>
+                        <p className="card-text" ><small className="text-muted">Stock disponible : {stock}</small></p>
+                        <Link to={`/producto/${id}`} className="btn btn-danger my-4">Ver detalle del producto</Link>
+                        <p className="card-text fw-bold">${precio}</p>
+                    </div>
                 </div>
             </div>
-        </div>
      );
 }
  

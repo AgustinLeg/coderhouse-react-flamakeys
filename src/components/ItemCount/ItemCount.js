@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ItemCount = ({stock,initial,addCantidadCarrito}) => {
+const ItemCount = ({stock,initial = 1,addCantidadCarrito, setCheckout}) => {
 
     
     const [cantidad, setCantidad ] = useState(1)
@@ -12,6 +12,11 @@ const ItemCount = ({stock,initial,addCantidadCarrito}) => {
     const addCant = () => {
         if(!stock) return;
         if(cantidad < stock) setCantidad(cantidad + 1)
+    }
+
+    const onAdd = () =>{
+      addCantidadCarrito(cantidad)
+      setCheckout(true)
     }
 
   return (
@@ -35,10 +40,11 @@ const ItemCount = ({stock,initial,addCantidadCarrito}) => {
       <button
         disabled={stock ? false : true}
         className="btn btn-danger"
-        onClick={() => addCantidadCarrito(cantidad)}
+        onClick={onAdd}
       >
         {stock ? "Añadir al carrito" : "No tenemos mas :("}
       </button>
+
     </div>
   );
 };

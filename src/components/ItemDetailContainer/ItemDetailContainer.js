@@ -27,8 +27,7 @@ const ItemDetailContainer = ({ items, addCantidadCarrito }) => {
         setCargando(false)
       })
       .catch((err) => console.error(err))
-  }, [items,id]);
-  
+  }, [items,id]);  
   return (
     <div
       className="container-fluid align-middle flex-column mt-5 pt-5"

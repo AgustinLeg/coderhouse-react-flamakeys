@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState} from 'react';
+import { Link } from 'react-router-dom';
 import ItemCount from "../ItemCount/ItemCount";
 
 const ItemDetail = ({itemdetail, addCantidadCarrito}) => {
     const {id,nombre, precio, descripcion,img, stock} = itemdetail;
-
+    const [checkout, setCheckout] = useState(false)
     
     return (
         <div className="card m-3" data-id={id}>
@@ -17,7 +18,11 @@ const ItemDetail = ({itemdetail, addCantidadCarrito}) => {
                         <p className="card-text">{descripcion}</p>
                         <p className="card-text fs-2">${precio}</p>
                         <p className="card-text" ><small className="text-muted">{stock} unidades disponibles</small></p>
-                        <ItemCount stock={stock}  initial={1} addCantidadCarrito={addCantidadCarrito}/>
+                        {checkout
+                            ?<Link to="/cart" className="btn btn-danger">Finalizar Compra</Link>
+                            :<ItemCount stock={stock}  initial={1} addCantidadCarrito={addCantidadCarrito} setCheckout={setCheckout}/>
+                        }
+                        
                     </div>
                 </div>
             </div>

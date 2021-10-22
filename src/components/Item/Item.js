@@ -11,7 +11,7 @@ const Item = ({item}) => {
                     <div className="card-body text-center bg-light">
                         <h5 className="card-title">{nombre}</h5>
                         <p className="card-text" ><small className="text-muted">Stock disponible : {stock}</small></p>
-                        <Link to={`/producto/${id}`} className="btn btn-danger my-4">Ver detalle del producto</Link>
+                        <Link to={`/producto/${id}`} className="btn btn-danger my-4 text-uppercase fw-bold">Ver producto</Link>
                         <p className="card-text fw-bold">${precio}</p>
                     </div>
                 </div>

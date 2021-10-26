@@ -3,10 +3,10 @@ import React from "react";
 const CartItem = ({item,removeItem}) => {
   const {id,img,nombre,total,cantidad} = item
   return (
-    <div className="card mb-5 border-0" style={{maxWidth: "400px"}}>
+    <div className="card mb-5 border-0">
       <div className="row g-0">
         <div className="col-2">
-          <img src={img} className="img-fluid rounded-start" alt={`Foto producto ${nombre}`} />
+          <img src={img} className="img-fluid rounded-start" alt={`Foto producto ${nombre}`}/>
         </div>
         <div className="col-8">
           <div className="card-body">

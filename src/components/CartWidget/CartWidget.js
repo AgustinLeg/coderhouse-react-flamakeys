@@ -4,6 +4,7 @@ import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { useCartContext } from "../../context/cartContext";
 import CartItem from "../CartItem/CartItem";
 import CartActions from "../CartActions/CartActions";
+import { Link } from "react-router-dom";
 const CartWidget = () => {
   const { items, total, removeItem, clearCart } = useCartContext();
 
@@ -31,7 +32,7 @@ const CartWidget = () => {
         aria-labelledby="offCanvasCartLabel"
       >
         <div className="offcanvas-header">
-          <h5 id="offCanvasCartLabel">Tu Carrito</h5>
+          <h5 id="offCanvasCartLabel">Tu Pedido</h5>
           <button
             type="button"
             className="btn-close text-reset"
@@ -50,7 +51,14 @@ const CartWidget = () => {
               <CartActions total={total} clearCart={clearCart} />
             </>
           ) : (
-            <p className="text-center">Tu carrito esta vacio :(</p>
+            <div className="d-flex flex-column">
+              <p className="text-center">El carrito de compras está vacío.</p>
+              <button type="button" className="btn" data-bs-dismiss="offcanvas" data-bs-target="#offCanvasCart" aria-label="Close">
+              <Link to="/" className="btn btn-success">
+                Quiero Comprar
+              </Link>
+            </button>
+            </div>
           )}
         </div>
       </div>

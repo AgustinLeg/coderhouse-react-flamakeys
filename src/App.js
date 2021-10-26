@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
+import Cart from './pages/Cart/Cart'
 import ItemDetailContainer from "./components/ItemDetailContainer/ItemDetailContainer";
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
 import NavBar from "./components/NavBar/NavBar";
@@ -8,7 +9,6 @@ import CartProvider from "./context/cartContext";
 
 
 function App() {
-  const [items, setItems] = useState([]);
   return (
     <CartProvider>
       <BrowserRouter>
@@ -17,15 +17,16 @@ function App() {
         </header>
         <Switch>
           <Route exact path="/">
-            <ItemListContainer items={items} setItems={setItems} />
+            <ItemListContainer />
           </Route>
           <Route exact path="/categoria/:nombre">
-            <ItemListContainer items={items} setItems={setItems}/>
+            <ItemListContainer />
           </Route>
           <Route exact path="/producto/:id">
-            <ItemDetailContainer
-              items={items}
-            />
+            <ItemDetailContainer />
+          </Route>
+          <Route exact path="/cart">
+            <Cart />
           </Route>
         </Switch>
       </BrowserRouter>

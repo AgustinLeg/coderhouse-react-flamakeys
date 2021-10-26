@@ -15,9 +15,11 @@ const CartActions = ({total,clearCart}) => {
               <h6 className="fw-bold fs-4">Total:</h6>
               <span className="fw-bold fs-4">${total}</span>
             </div>
-            <Link to="/cart" className="btn btn-success">
-              Finalizar Compra
-            </Link>
+            <button type="button" className="btn" data-bs-dismiss="offcanvas" data-bs-target="#offCanvasCart" aria-label="Close">
+              <Link to="/cart" className="btn btn-success">
+                Finalizar Compra
+              </Link>
+            </button>
           </div>
     )
 }

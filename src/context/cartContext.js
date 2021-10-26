@@ -12,6 +12,12 @@ const CartProvider = ({ children }) => {
 
   useEffect(() =>{
     localStorage.setItem('cart', JSON.stringify(items))
+    const calcularTotal = () => {
+      let suma = items.reduce(function (total, item) {
+        return total + item.total;
+      }, 0);
+      setTotal(suma);
+    };
     calcularTotal()
   },[items])
 
@@ -44,13 +50,6 @@ const CartProvider = ({ children }) => {
     });
     setItems(itemsActualizado);
   }
-
-  const calcularTotal = () => {
-    let suma = items.reduce(function (total, item) {
-      return total + item.total;
-    }, 0);
-    setTotal(suma);
-  };
 
   return (
     <CartContext.Provider

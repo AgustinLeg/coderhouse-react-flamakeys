@@ -5,7 +5,7 @@ import useItemDetail from "../../hooks/useItemDetail";
 import ItemDetail from "../ItemDetail/ItemDetail";
 import Spinner from "../Stateless/Spinner/Spinner";
 
-const ItemDetailContainer = (addCantidadCarrito) => {
+const ItemDetailContainer = () => {
 
   const {items} = useGetProducts();
   const {itemDetail,loading} = useItemDetail(items);
@@ -19,16 +19,17 @@ const ItemDetailContainer = (addCantidadCarrito) => {
         ? <Spinner />
         : 
         <> 
-        <Link to="/" className="btn btn-danger my-5">
+        <Link to="/" className="btn btn-danger ">
             Volver
         </Link>
-        {itemDetail
-          ? <ItemDetail
-              itemdetail={itemDetail}
-              addCantidadCarrito={addCantidadCarrito}
-            />
-          : <h2 className="text-center mt-5">Ups no pudimos encontrar el producto que estaba buscando </h2>
-        }
+        <div className="container">
+          {itemDetail
+            ? <ItemDetail
+                itemdetail={itemDetail}
+              />
+            : <h2 className="text-center mt-5">Ups no pudimos encontrar el producto que estaba buscando </h2>
+          }
+        </div>
         </>
       }
       

@@ -1,8 +1,9 @@
 import React from "react";
-import { useCartContext } from "../../context/cartContext";
 
-const ItemCount = ({ stock, initial = 1 }) => {
-  const { cantidad,setCantidad } = useCartContext();
+const ItemCount = ({ stock, cantidad, setCantidad,initial = 1, width}) => {
+
+  
+
   const removeCant = () => {
     if (!stock) return;
     if (cantidad > initial) setCantidad(cantidad - 1);
@@ -13,30 +14,35 @@ const ItemCount = ({ stock, initial = 1 }) => {
   };
 
   return (
-    <div className="container__quantity " style={{ maxWidth: "200px" }}>
-      <div className="quantity d-flex justify-content-center mb-3">
+    <>
+      <div
+        className="container__quantity border border-dark rounded-pill d-flex justify-content-center mb-4 p-1"
+        style={{ maxWidth: width }}
+      >
         <button
-          className="btn btn-outline-danger"
-          onClick={() => removeCant(stock, initial)}
+          className="btn rounded-circle bg-dark text-white"
+          onClick={() => removeCant()}
         >
           -
         </button>
         <input
           type="number"
-          className="form-control text-center"
-          value={stock ? cantidad : 0}
-          min={initial}
+          className="form-control-plaintext text-center bg-transparent border-0"
+          name="quantity"
+          value={cantidad}
+          min={1}
           max={stock}
+          aria-label="Cambiar cantidad"
           readOnly
         />
         <button
-          className="btn btn-outline-danger"
-          onClick={() => addCant(stock)}
+          className="btn rounded-circle bg-dark text-white"
+          onClick={() => addCant()}
         >
           +
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

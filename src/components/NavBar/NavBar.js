@@ -1,10 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getFirestore } from '../../services/getFirebase';
 
 import CartWidget from '../CartWidget/CartWidget'
 
-const NavBar = ({cantidadCarrito}) => {
-    return ( 
+const NavBar = () => {
+
+    const [categories, setCategories] = useState([])
+    
+    useEffect(() => {
+         const db = getFirestore()
+
+         const getCategories = async () =>{
+             try {
+                const resp = await db.collection('categorias').get(); 
+                setCategories(resp.docs.map(cat => ({id: cat.id, ...cat.data()})));
+             } catch (error) {
+                 console.error(error)
+             }
+         }
+         getCategories()
+    }, [])
+
+    const setActiveLink = (e) => {
+        document.querySelectorAll('.nav-item .nav-link').forEach(item =>{
+            item.classList.remove("active")
+        })
+        e.target.classList.add('active')
+    }
+    
+    
+    return (
         <div className="container d-flex px-0">
             <nav className="navbar navbar-light navbar-expand-md bg-light w-100">
             <div className="container-fluid">
@@ -16,15 +42,11 @@ const NavBar = ({cantidadCarrito}) => {
                 </div>
                 <div className="offcanvas-body w-100">
                     <ul className="navbar-nav justify-content-center flex-grow-1 pe-3">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/">Inicio</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/categoria/teclados">Teclados</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/categoria/mouse">Mouse</Link>
-                        </li>
+                        {categories.map(cat =>(
+                            <li key={cat.id} className="nav-item" onClick={setActiveLink}>
+                                <Link className="nav-link" to={cat.key.length > 1 ? `/categoria/${cat.key}`: cat.key}>{cat.nombre}</Link>
+                            </li>
+                        ))}
                     </ul>
                  </div>
                 </div>
@@ -35,9 +57,7 @@ const NavBar = ({cantidadCarrito}) => {
                 </div>
             </div>
             </nav>
-            <CartWidget
-                cantidadCarrito={cantidadCarrito}
-            />
+            <CartWidget />
         </div>
      )
 };

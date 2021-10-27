@@ -1,33 +1,26 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { getFirestore } from "../services/getFirebase";
 
-const useItemDetail = (items) => {
+const useItemDetail = () => {
   const { id } = useParams();
-  const [itemDetail, setItemDetail] = useState([]);
+  const [itemDetail, setItemDetail] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getItem = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (items.length > 0) {
-          const item = items.find((i) => i.id === Number(id));
-          if (item) {
-            resolve(item);
-          } else {
-            reject("no encontramos el producto");
-            setItemDetail(null);
-          }
-        }
-       
-      }, 1500);
-    });
-    getItem
-      .then((res) => {
-        setItemDetail(res);
-        setLoading(false)
-      })
-      .catch((err) => console.error(err));
-  }, [items, id]);
+    const db = getFirestore();
+    setLoading(true);
+    const getData = async () => {
+      try {
+        const resp = await db.collection("productos").doc(id).get();
+        setItemDetail({ id: resp.id, ...resp.data() });
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, [id]);
 
   return { itemDetail, loading };
 };

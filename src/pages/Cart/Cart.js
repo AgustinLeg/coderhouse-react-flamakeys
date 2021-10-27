@@ -1,20 +1,23 @@
-import React from "react";
+import React,{useState} from "react";
 import { Link } from "react-router-dom";
 import CartItem from "../../components/CartItem/CartItem";
 import { useCartContext } from "../../context/cartContext";
 
 const Cart = () => {
   const { items, total, removeItem, clearCart} = useCartContext();
-
+  const [inputDisscount, setInputDisscount] = useState('')
   
-
+  const handleChange = e =>{
+    setInputDisscount(e.target.value)
+  }
+  
   return (
     <div className="container-fluid pt-5 mt-5">
       <div className="row p-5">
-        <div className="col-md-8">
+        <div className="col-md-7">
           {items.length > 0 ? (
             <>
-              <div className="cart-container">
+              <div className="cart-container div-stripped">
                 {items.map((item) => (
                   <CartItem key={item.id} item={item} removeItem={removeItem} />
                 ))}
@@ -37,7 +40,7 @@ const Cart = () => {
             </div>
           )}
         </div>
-        <div className="col-md-4">
+        <div className="col-md-5">
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">RESUMEN DE PEDIDO</h5>
@@ -62,6 +65,8 @@ const Cart = () => {
                         type="text"
                         className="form-control"
                         id="inputDisscount"
+                        value={inputDisscount}
+                        onChange={handleChange}
                       />
                     </div>
                     <div>
@@ -74,11 +79,11 @@ const Cart = () => {
               </div>
             </div>
           </div>
-          <div className="btn-group d-flex justify-content-between align-items-center" role="group">
-            <Link to="/" className="btn btn-danger" onClick={clearCart}>
+          <div className="btn-group d-flex flex-column flex-lg-row justify-content-between align-items-center mt-5" role="group">
+            <Link to="/" className="btn btn-danger w-100 mt-2" onClick={clearCart}>
               Cancelar Pedido
             </Link>
-            <Link to="/finalizar-compra" className="btn btn-success">
+            <Link to="/finalizar-compra" className="btn btn-success w-100 mt-2">
               Continuar
             </Link>
           </div>

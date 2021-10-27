@@ -1,24 +1,36 @@
 import { useEffect, useState } from "react";
-import productos from "../data/productos";
+import { useParams } from "react-router";
+import { getFirestore } from "../services/getFirebase";
 
-const useGetProducts = () =>{
-    const [items, setItems] = useState([])
-    const [loading, setLoading] = useState(true);
-    
-    useEffect(() => {
-      setLoading(true)
-      const getItems = new Promise((resolve, reject) => {
-          setTimeout(() => {
-            resolve(productos);
-          }, 1500);
-        });
-        getItems.then((res) => {
-          setItems(res);
-          setLoading(false)
-        });
-    }, [items])
+const useGetProducts = () => {
+  const {categoria} = useParams()
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    return {items, loading}
-}
+  
+  useEffect(() => {
+    const db = getFirestore();
+    setLoading(true);
+    const getData = async () =>{
+      try {
+        let resp = []
+        if(categoria){
+          resp = await db.collection('productos').where('categoria','==',categoria).get()
+        }else{
+          resp = await db.collection('productos').get()
+        }
+        setItems(resp.docs.map(item => ({id: item.id, ...item.data()})))
+        setLoading(false);
+      } catch (error) {
+        
+        console.log(error);
+      }
+      
+    }
+    getData()
+  }, [categoria]);
+
+  return { items, categoria, loading };
+};
 
 export default useGetProducts;

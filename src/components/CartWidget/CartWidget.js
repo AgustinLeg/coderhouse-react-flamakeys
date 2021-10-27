@@ -12,14 +12,14 @@ const CartWidget = () => {
     <div className="cart bg-light">
       <div className="cart-button d-flex align-items-center px-2">
         <button
-          className="btn mt-3 btn-danger position-relative"
+          className="btn mt-3 text-danger position-relative p-1"
           type="button"
           data-bs-toggle="offcanvas"
           data-bs-target="#offCanvasCart"
           aria-controls="offCanvasCart"
         >
-          <FontAwesomeIcon icon={faShoppingBag}></FontAwesomeIcon>
-          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark ">
+          <FontAwesomeIcon icon={faShoppingBag} className="fs-2"></FontAwesomeIcon>
+          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark fs-7">
             {items.length}{" "}
             <span className="visually-hidden">cantidad carrito</span>
           </span>

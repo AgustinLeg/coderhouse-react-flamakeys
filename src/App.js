@@ -6,6 +6,7 @@ import ItemDetailContainer from "./components/ItemDetailContainer/ItemDetailCont
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
 import NavBar from "./components/NavBar/NavBar";
 import CartProvider from "./context/cartContext";
+import NotFound from "./components/404/NotFound";
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
           <Route exact path="/">
             <ItemListContainer />
           </Route>
-          <Route exact path="/categoria/:nombre">
+          <Route exact path="/categoria/:categoria">
             <ItemListContainer />
           </Route>
           <Route exact path="/producto/:id">
@@ -27,6 +28,11 @@ function App() {
           </Route>
           <Route exact path="/cart">
             <Cart />
+          </Route>
+          <Route path="*">
+            <NotFound 
+              msg="Ups no encontramos lo que estabas buscando."
+            />
           </Route>
         </Switch>
       </BrowserRouter>

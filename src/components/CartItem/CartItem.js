@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useCartContext } from "../../context/cartContext";
+import useFormatPrice from "../../hooks/useFormatPrice";
 import ItemCount from "../ItemCount/ItemCount";
 
 const CartItem = ({ item, removeItem }) => {
@@ -7,12 +8,14 @@ const CartItem = ({ item, removeItem }) => {
   const { id, imgURL, nombre, total, cantidad, stock } = item;
   const [cantidadCart, setCantidadCart] = useState(cantidad);
 
+  
   useEffect(() => {
     updateItem({
       ...item,
       cantidad: cantidadCart,
     });
-  }, [cantidadCart]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cantidadCart,item]);
 
   return (
     <div className="card mb-5 border-0 p-2">
@@ -26,14 +29,14 @@ const CartItem = ({ item, removeItem }) => {
         </div>
         <div className="col-7">
           <div className="card-body">
-            <h5 className="card-title" style={{ fontSize: "16px" }}>
+            <h5 className="card-title" style={{ fontSize: "14px" }}>
               {nombre}
             </h5>
             <ItemCount
               stock={stock}
               cantidad={cantidadCart}
               setCantidad={setCantidadCart}
-              width="140px"
+              width="120px"
             />
           </div>
         </div>
@@ -59,7 +62,9 @@ const CartItem = ({ item, removeItem }) => {
               />
             </svg>
           </button>
-          <p className="card-text mt-4 fw-bold">${total}</p>
+          <p className="card-text mt-4 fw-bold" style={{ fontSize: "12px" }}>
+            {useFormatPrice(total)}
+          </p>
         </div>
       </div>
     </div>

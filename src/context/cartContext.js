@@ -16,7 +16,7 @@ const CartProvider = ({ children }) => {
         return total + item.total;
       }, 0);
       setTotal(suma);
-    };
+    };  
     calcularTotal();
   }, [items]);
 

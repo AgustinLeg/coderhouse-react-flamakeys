@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import { Link } from "react-router-dom";
 import CartItem from "../../components/CartItem/CartItem";
 import { useCartContext } from "../../context/cartContext";
+import useFormatPrice from "../../hooks/useFormatPrice";
 
 const Cart = () => {
   const { items, total, removeItem, clearCart} = useCartContext();
@@ -46,7 +47,7 @@ const Cart = () => {
               <h5 className="card-title">RESUMEN DE PEDIDO</h5>
               <hr />
               <h6 className="mb-5 fs-4 d-flex justify-content-between ">
-                Total: <span>${total}</span>
+                Total: <span>{useFormatPrice(total)}</span>
               </h6>
               <button
                 className="btn btn-outline-dark  w-100"

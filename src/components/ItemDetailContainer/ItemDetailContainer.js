@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import useGetProducts from "../../hooks/useGetProducts";
 import useItemDetail from "../../hooks/useItemDetail";
 import ItemDetail from "../ItemDetail/ItemDetail";
-import Spinner from "../Stateless/Spinner/Spinner";
+import Loader from "../Stateless/Loader/Loader";
+
 
 const ItemDetailContainer = () => {
 
@@ -16,7 +17,7 @@ const ItemDetailContainer = () => {
       style={{ height: "100vh" }}
     >
       {loading
-        ? <Spinner />
+        ? <Loader />
         : 
         <> 
         <Link to="/" className="btn btn-danger ">

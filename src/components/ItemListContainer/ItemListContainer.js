@@ -4,14 +4,14 @@ import useGetProducts from "../../hooks/useGetProducts";
 import NotFound from "../404/NotFound";
 
 import ItemList from "../ItemList/ItemList";
-import Spinner from "../Stateless/Spinner/Spinner";
+import Loader from "../Stateless/Loader/Loader";
 
 const ItemListContainer = () => {
   const { items, categoria, loading } = useGetProducts();
   return (
     <section>
       {loading ? (
-        <Spinner />
+        <Loader />
       ) : (
         <div className="container mt-5 pt-5 ">
           {items.length > 0 ? (

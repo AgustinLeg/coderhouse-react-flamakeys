@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import useFormatPrice from '../../hooks/useFormatPrice'
 
 const CartActions = ({total,clearCart}) => {
     return (
@@ -13,10 +14,10 @@ const CartActions = ({total,clearCart}) => {
             </button>
             <div className="total-info d-flex justify-content-between my-2">
               <h6 className="fw-bold fs-4">Total:</h6>
-              <span className="fw-bold fs-4">${total}</span>
+              <span className="fw-bold fs-4">{useFormatPrice(total)}</span>
             </div>
             <button type="button" className="btn" data-bs-dismiss="offcanvas" data-bs-target="#offCanvasCart" aria-label="Close">
-              <Link to="/cart" className="btn btn-success">
+              <Link to="/cart" className="btn btn-success w-100">
                 Finalizar Compra
               </Link>
             </button>

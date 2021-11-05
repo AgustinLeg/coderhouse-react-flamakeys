@@ -12,7 +12,7 @@ const CartWidget = () => {
     <div className="cart bg-light">
       <div className="cart-button d-flex align-items-center px-2">
         <button
-          className="btn mt-3 text-danger position-relative p-1"
+          className="btn mt-2 text-danger position-relative p-1"
           type="button"
           data-bs-toggle="offcanvas"
           data-bs-target="#offCanvasCart"

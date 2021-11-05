@@ -1,9 +1,6 @@
 import React from "react";
 
-const ItemCount = ({ stock, cantidad, setCantidad,initial = 1, width}) => {
-
-  
-
+const ItemCount = ({ stock, cantidad, setCantidad, initial = 1, width }) => {
   const removeCant = () => {
     if (!stock) return;
     if (cantidad > initial) setCantidad(cantidad - 1);
@@ -27,7 +24,7 @@ const ItemCount = ({ stock, cantidad, setCantidad,initial = 1, width}) => {
         </button>
         <input
           type="number"
-          className="form-control-plaintext text-center bg-transparent border-0"
+          className="form-control-plaintext text-center bg-transparent border-0 quantity-item"
           name="quantity"
           value={cantidad}
           min={1}

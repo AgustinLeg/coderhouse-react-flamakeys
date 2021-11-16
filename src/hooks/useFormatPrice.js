@@ -3,7 +3,8 @@ const useFormatPrice = (precio) => {
     const priceFormat = new Intl.NumberFormat('es-AR', options);
     const precioNuevo = priceFormat.format(precio)
     const indexDecimal = precioNuevo.indexOf(',')
-    return precioNuevo.slice(0,indexDecimal);
+    const final =precioNuevo.slice(0,indexDecimal)
+    return final;
 }
 
 export default useFormatPrice

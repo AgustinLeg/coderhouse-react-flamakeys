@@ -18,7 +18,7 @@ const Cart = () => {
         <div className="col-md-7">
           {items.length > 0 ? (
             <>
-              <div className="cart-container div-stripped">
+              <div className="cart-container">
                 {items.map((item) => (
                   <CartItem key={item.id} item={item} removeItem={removeItem} />
                 ))}
@@ -84,7 +84,7 @@ const Cart = () => {
             <Link to="/" className="btn btn-danger w-100 mt-2" onClick={clearCart}>
               Cancelar Pedido
             </Link>
-            <Link to="/finalizar-compra" className="btn btn-success w-100 mt-2">
+            <Link to="/finalizar-compra" className="btn btn-dark w-100 mt-2">
               Continuar
             </Link>
           </div>

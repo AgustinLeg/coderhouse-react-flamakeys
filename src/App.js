@@ -3,11 +3,12 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import CartProvider from "./context/cartContext";
 import AuthProvider from "./context/authContext";
+import UserProvider from "./context/userContext";
 
 import ItemDetailContainer from "./components/ItemDetailContainer/ItemDetailContainer";
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
 import NavBar from "./components/NavBar/NavBar";
-import NotFound from "./components/404/NotFound";
+import NotFound from "./pages/404/NotFound";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 
@@ -21,12 +22,14 @@ import UserPassword from "./pages/User/UserPassword";
 import UserDelete from "./pages/User/UserDelete";
 import OrderDetail from "./pages/Checkout/OrderDetail";
 
+
 function App() {
   return (
     <AuthProvider>
+      <UserProvider>
       <CartProvider>
         <BrowserRouter>
-          <header className="bg-light container-fluid fixed-top">
+          <header className="container-fluid fixed-top zindex-tooltip bg-white">
             <NavBar />
           </header>
           <Switch>
@@ -64,6 +67,7 @@ function App() {
           </Switch>
         </BrowserRouter>
       </CartProvider>
+      </UserProvider>
     </AuthProvider>
   );
 }

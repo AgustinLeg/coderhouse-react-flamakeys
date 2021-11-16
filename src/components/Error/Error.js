@@ -1,8 +1,8 @@
 import React from "react";
 
-const Error = ({ msg,tipo}) => {
+const Error = ({msg}) => {
   return (
-    <div className={`alert alert-${tipo} text-center my-4`} role="alert">
+    <div className='text-center my-4 text-danger border border-danger rounded-0 p-2' role="alert">
       {msg}
     </div>
   );

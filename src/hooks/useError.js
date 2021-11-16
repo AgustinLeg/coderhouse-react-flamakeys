@@ -1,24 +1,15 @@
 import { useState } from "react";
 
 const useError = () => {
-  const initialState = {
-    estado: false,
-    msg: "",
-    tipo: "",
-  };
-  const [error, setError] = useState(initialState);
+  const [error, setError] = useState(false);
 
-  const newError = (msg,tipo,tiempo = 3000) => {
-    setError({
-      estado:true,
-      msg,
-      tipo,
-    });
+  const newError = (tiempo = 3000) => {
+    setError(true);
     setTimeout(() => {
-      setError(initialState);
+      setError(false);
     }, tiempo);
   };
-  return {error,newError}
+  return { error, newError };
 };
 
 export default useError;

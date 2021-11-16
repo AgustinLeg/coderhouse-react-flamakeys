@@ -14,15 +14,102 @@ code {
     monospace;
 }
 
-div.div-stripped > div:nth-of-type(odd) {
-  background: #e0e0e0;
-}
 .quantity-item::-webkit-outer-spin-button {
   -webkit-appearance: none;
-    margin: 0;
+  margin: 0;
 }
 
-.nav-active{
-  background: blue;
-  color:#fff;
+.flama-active {
+  background: rgb(34, 34, 34);
+  color: #fff;
+}
+.flama-active:hover {
+  color: #fff;
+}
+input:focus,
+.btn:focus {
+  outline: none !important;
+  border: 2px solid black !important;
+  box-shadow: none !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* CARRITO */
+
+#SideCart.active {
+  transform: translateX(0);
+}
+
+.sidenav {
+  height: 100%;
+  width: 410px;
+  position: fixed;
+  z-index: 20000;
+  top: 0;
+  right: 0;
+  background-color: #fff;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding: 10px;
+  transform-origin: left center;
+  transform: translateX(500px);
+  box-shadow: 6px 0px 10px rgb(0 0 0 / 40%);
+}
+
+.backdrop-cart {
+  visibility: hidden;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 11000;
+}
+
+.backdrop-cart.active {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 28px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left 0.5s;
+  padding: 16px;
+}
+
+
+.modal-style {
+  padding: 1000px 50px 0 50px;
+}
+
+
+@media screen and (max-width: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+
+}
+
+@media screen and (min-width: 768px) {
+  .modal-style {
+    padding: 0;
+  }
+  
 }

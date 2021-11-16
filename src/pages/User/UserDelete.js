@@ -1,25 +1,28 @@
 import React from "react";
 import { useHistory } from "react-router";
 import { useAuthContext } from "../../context/authContext";
-import useGetUser from "../../hooks/useGetUser";
+import { useUserContext } from "../../context/userContext";
 
 const UserDelete = () => {
-  const { deleteUser, logout} = useAuthContext();
-  const {user} = useGetUser()
-
+  const { deleteUser, logout } = useAuthContext();
+  const { user } = useUserContext();
   const history = useHistory();
   const handleClick = async () => {
     try {
+      console.log(user.id);
       await deleteUser(user.id);
       history.push("/");
     } catch (error) {
       switch (error.code) {
         case "auth/requires-recent-login":
           alert("vuelve a ingresar, para borrar la cuenta");
-          logout()
-          history.push('/login')
+          logout();
+          history.push("/login");
           break;
         default:
+          alert("Algo salio mal vuelve a ingresar");
+          logout();
+          history.push("/login");
           break;
       }
     }
@@ -45,7 +48,7 @@ const UserDelete = () => {
           </div>
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-dark mt-3"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
           >
@@ -81,7 +84,12 @@ const UserDelete = () => {
                   >
                     Cancelar
                   </button>
-                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={handleClick}>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    data-bs-dismiss="modal"
+                    onClick={handleClick}
+                  >
                     Borrar
                   </button>
                 </div>
@@ -94,4 +102,4 @@ const UserDelete = () => {
   );
 };
 
-export default UserDelete;
+export default React.memo(UserDelete);

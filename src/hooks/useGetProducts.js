@@ -22,8 +22,9 @@ const useGetProducts = () => {
         setItems(resp.docs.map(item => ({id: item.id, ...item.data()})))
         setLoading(false);
       } catch (error) {
-        
-        console.log(error);
+        setLoading(false);
+        console.error(error);
+        setItems([]);
       }
       
     }

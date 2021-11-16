@@ -4,18 +4,17 @@ import { auth, getFirestore } from "../services/getFirebase";
 
 const AuthContext = createContext();
 export const useAuthContext = () => useContext(AuthContext);
-const dbQuery = getFirestore();
+
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState([]);
+  const dbQuery = getFirestore();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
     });
-    
-    return () =>{
-      setCurrentUser(null)
-    }
+    console.log('ejecutado')
+
   }, [currentUser]);
 
   const newUser = (
@@ -44,9 +43,11 @@ const AuthProvider = ({ children }) => {
     } = res;
     if (isNewUser) newUser(formUser, providerId, uid);
   };
+
   const login = (email, password) => {
     return auth.signInWithEmailAndPassword(email, password);
   };
+
   const logout = () => auth.signOut();
 
   const loginWithGoogle = async () => {
@@ -57,16 +58,22 @@ const AuthProvider = ({ children }) => {
       user: { uid },
     } = res;
     if (isNewUser) newUser(profile, providerId, uid);
+    return res;
   };
 
   const deleteUser = (id) => {
-    dbQuery.collection('usuarios').doc(id).delete()
+    dbQuery.collection("usuarios").doc(id).delete();
     return auth.currentUser.delete();
   };
 
-  const updatePassword = (password) =>{
-    auth.currentUser.updatePassword(password)
-  }
+  const updatePassword = (password) => {
+    auth.currentUser.updatePassword(password);
+  };
+
+  const updateUser = async (id, data) => {
+    const docRef = await dbQuery.collection("usuarios").doc(id);
+    return docRef.update(data);
+  };
 
   return (
     <AuthContext.Provider
@@ -77,7 +84,8 @@ const AuthProvider = ({ children }) => {
         logout,
         loginWithGoogle,
         deleteUser,
-        updatePassword
+        updatePassword,
+        updateUser,
       }}
     >
       {children}

@@ -7,7 +7,9 @@ const CartProvider = ({ children }) => {
   const itemsInicial = JSON.parse(localStorage.getItem("cart")) || [];
 
   const [items, setItems] = useState(itemsInicial);
+  const [order, setOrder] = useState(null);
   const [total, setTotal] = useState(0);
+  const [cantidad, setCantidad] = useState(0)
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(items));
@@ -16,7 +18,13 @@ const CartProvider = ({ children }) => {
         return total + item.total;
       }, 0);
       setTotal(suma);
-    };  
+      
+      const qty = items.reduce(function (total, item) {
+        return total + item.cantidad;
+      }, 0);
+      setCantidad(qty)
+    };
+
     calcularTotal();
   }, [items]);
 
@@ -40,8 +48,11 @@ const CartProvider = ({ children }) => {
   const isInCart = (item) => {
     const itemsActualizado = items.map((i) => {
       if (i.id === item.id) {
-        i.cantidad += item.cantidad;
-        i.total = i.precio * i.cantidad;
+        const restante = i.stock - i.cantidad;
+        if(restante !== 0){
+          i.cantidad = Number(item.cantidad);
+          i.total = i.precio * Number(item.cantidad);
+        }
         return i;
       } else {
         return i;
@@ -50,31 +61,19 @@ const CartProvider = ({ children }) => {
     setItems(itemsActualizado);
   };
 
-  const updateItem = (item) => {
-    const existe = items.some((i) => i.id === item.id);
-    if (existe) {
-      const itemsActualizado = items.map((i) => {
-        if (i.id === item.id) {
-          i.cantidad = item.cantidad;
-          i.total = i.precio * i.cantidad;
-          return i;
-        } else {
-          return i;
-        }
-      });
-      setItems(itemsActualizado);
-    }
-  };
+
 
   return (
     <CartContext.Provider
       value={{
         items,
+        order,
         total,
+        cantidad,
+        setOrder,
         addItem,
         removeItem,
         clearCart,
-        updateItem,
       }}
     >
       {children}

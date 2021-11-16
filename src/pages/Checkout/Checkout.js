@@ -15,7 +15,7 @@ const Checkout = () => {
           <CheckoutBox setLoader={setLoader}/>
         </div>
         <div className="col-md-5">
-          <div className="card">
+          <div className="card bg-light">
             <div className="card-body">
               <h5 className="card-title text-uppercase">Resumen de tu pedido</h5>
               <hr />
@@ -30,7 +30,7 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-      {loader && <div className='position-fixed bg-dark w-100 h-100 top-0 end-0 zinfex-fixed bg-opacity-25'><Spinner /></div>}
+      {loader && <div className='position-fixed bg-dark w-100 h-100 top-0 end-0 zindex-fixed bg-opacity-25'><Spinner /></div>}
     </div>
   );
 };

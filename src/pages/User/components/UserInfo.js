@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import { useAuthContext } from "../../../context/authContext";
 import { useForm } from "../../../hooks/useForm";
+import Error from "../../../components/Error/Error";
+import useError from "../../../hooks/useError";
+import Spinner from "../../../components/Stateless/Spinner/Spinner";
 
 const UserInfo = ({ user }) => {
-  const { nombre, apellido, email, telefono } = user;
+  const { nombre, apellido, email, telefono, id } = user;
+  const { updateUser } = useAuthContext();
   const [values, handleInputChange] = useForm({
     nombre,
     apellido,
@@ -10,9 +15,23 @@ const UserInfo = ({ user }) => {
     telefono,
   });
 
-  const handleSubmit = (e) => {
+  const { error, newError } = useError();
+  const [loader, setLoader] = useState(false);
+  const [dataUpdate, setDataUpdate] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("click");
+    setLoader(true);
+    try {
+      console.log('inicio')
+      console.log(updateUser(id, values));
+      console.log('fin')
+      setLoader(false);
+      setDataUpdate(true);
+    } catch (error) {
+      setLoader(false);
+      newError("Algo salio mal! , intenta refrescando la pagina");
+    }
   };
 
   return (
@@ -27,7 +46,7 @@ const UserInfo = ({ user }) => {
             type="text"
             className="form-control"
             id="inputNombre"
-            name="given_name"
+            name="nombre"
             value={values.nombre}
             onChange={handleInputChange}
           />
@@ -40,7 +59,7 @@ const UserInfo = ({ user }) => {
             type="text"
             className="form-control"
             id="inputApellido"
-            name="family_name"
+            name="apellido"
             value={values.apellido}
             onChange={handleInputChange}
           />
@@ -49,14 +68,9 @@ const UserInfo = ({ user }) => {
           <label htmlFor="inputEmail" className="form-label">
             Email
           </label>
-          <input
-            type="email"
-            className="form-control"
-            id="inputEmail"
-            name="email"
-            value={values.email}
-            onChange={handleInputChange}
-          />
+          <p className="form-control" id="inputEmail">
+            {email}
+          </p>
         </div>
         <div className="col-12">
           <label htmlFor="inputTelefono" className="form-label">
@@ -66,18 +80,33 @@ const UserInfo = ({ user }) => {
             type="number"
             className="form-control"
             id="inputAddress"
-            placeholder="11XXXXXXXX"
             name="telefono"
             value={values.telefono}
             onChange={handleInputChange}
           />
+          {values.telefono.length === 0 &&
+            "No contamos con tu numero de celular :( "}
         </div>
         <div className="col-12 d-flex flex-column justify-content center">
-          <button type="submit" className="btn btn-primary my-4">
+          <button type="submit" className="btn btn-dark my-4">
             Actualizar mis datos
           </button>
         </div>
       </form>
+      {dataUpdate && (
+        <p
+          className="text-center my-4 text-success border border-success rounded-0 p-2"
+          role="alert"
+        >
+          Datos Actualizado Correctamente
+        </p>
+      )}
+      {error.estado && <Error msg={error.msg} />}
+      {loader && (
+        <div className="position-fixed bg-dark w-100 h-100 top-0 end-0 zindex-dropdown bg-opacity-25">
+          <Spinner />
+        </div>
+      )}
     </div>
   );
 };

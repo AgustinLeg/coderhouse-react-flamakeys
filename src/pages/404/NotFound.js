@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import notfound from "../../assets/robot_notfound.svg";
 
-const NotFound = ({msg}) => {
+const NotFound = ({ msg }) => {
   return (
     <div className="row pt-5">
       <div className="col-md-6 d-flex justify-content-center align-items-center">

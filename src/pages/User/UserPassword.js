@@ -23,6 +23,7 @@ const UserPassword = () => {
           setComment(false);
         }, 2000);
       } catch (error) {
+        console.log('error');
         console.log(error);
       }
     } else {
@@ -45,8 +46,9 @@ const UserPassword = () => {
               onChange={(e) =>
                 setPassword({ ...password, pass: e.target.value.trim() })
               }
+              autoComplete='true'
               id="newPassword"
-              aria-describedby="emailHelp"
+              aria-describedby="new password"
             />
           </div>
           <div className="mb-3">
@@ -57,13 +59,14 @@ const UserPassword = () => {
               type="password"
               className="form-control"
               value={confirmPass}
+              autoComplete='true'
               onChange={(e) =>
                 setPassword({ ...password, confirmPass: e.target.value.trim() })
               }
               id="confirmPassword"
             />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-dark">
             Modificar Contraseña
           </button>
         </form>

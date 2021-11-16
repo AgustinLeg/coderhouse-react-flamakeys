@@ -1,38 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import useGetUser from "../../hooks/useGetUser";
+
+import { useUserContext } from "../../context/userContext";
+
+import Modal from "../../components/Modal/Modal";
 
 const UserOrders = () => {
-  const { orders = []} = useGetUser()
+  const { orders} = useUserContext();
+  const [modal, setModal] = useState(false);
+  const [templatedata, setTemplatedata] = useState([]);
+
+  const handleClick = (items) => {
+    setModal(true);
+    setTemplatedata(items);
+  };
+
+  const closeModal = () => setModal(false);
+
   return (
     <div className="container-fluid mt-5 pt-5">
       <div className="mt-5 pt-5">
         <h2 className="text-center">Mis Compras</h2>
-        <div className="container-fluid">
+        <div className="container">
+          <div className="row">
             {orders.length > 0 ? (
               <>
-                {orders.map((item) => (
-                  <div key={item.id} className="col-md-6 border p-3">
-                    <div className="col-12">
-                      <div className="card-body">
-                        <h5 className="card-title" style={{ fontSize: "12px" }}>
-                          {item.nombre}
-                        </h5>
-                      </div>
-                    </div>
-                    <div className="col-12 d-flex justify-content-between align-items-center">
-                    <span
-                          className="text-uppercase text-success"
-                          style={{ fontSize: "14px" }}
-                        >
-                          cantidad {item.cantidad}
-                        </span>
-                      <span
-                        className="fw-bold"
-                        style={{ fontSize: "12px" }}
+                {orders.map((order) => (
+                  <div
+                    key={order.id}
+                    className=" col-md-5 card text-white bg-dark m-3"
+                  >
+                    <div className="card-header">Pedido: <span className='fw-bold'>{order.id}</span></div>
+                    <div className="card-body">
+                      <h5 className="card-title">Total: $ {order.total} </h5>
+                      <p className="card-text">Fecha: {order.fecha}</p>
+                      <button
+                        type="button"
+                        className="btn btn-secondary"
+                        onClick={() => handleClick(order.items)}
                       >
-                        $ {item.cantidad * item.precio}
-                      </span>
+                        Mas Informacion
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -40,11 +48,15 @@ const UserOrders = () => {
             ) : (
               <div className="container text-center mt-5">
                 <p>Aun no compraste nada :( </p>
-                <Link to="/" className="btn btn-dark ">Comprar</Link>
+                <Link to="/" className="btn btn-dark ">
+                  Comprar
+                </Link>
               </div>
             )}
+          </div>
         </div>
       </div>
+      {modal && <Modal items={templatedata} closeModal={closeModal} />}
     </div>
   );
 };

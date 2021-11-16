@@ -3,31 +3,41 @@ import { NavLink } from "react-router-dom";
 
 const NavUser = () => {
   return (
-    <div className="border d-flex ">
-      <div className="card flex-fill">
-        <NavLink className="btn p-5 fw-bold" exact to="/mi-cuenta"  activeClassName={'nav-active'}>
-          Mis Datos
-        </NavLink>
-      </div>
-      <div className="card flex-fill">
-        <NavLink className="btn p-5 fw-bold" exact to="/mi-cuenta/pedidos" activeClassName={'nav-active'}>
-          Mis Pedidos
-        </NavLink>
-      </div>
-      <div className="card flex-fill">
-        <NavLink className="btn p-5 fw-bold" exact to="/mi-cuenta/restablecer-contrasena" activeClassName={'nav-active'}>
-          Restablecer Contraseña
-        </NavLink>
-      </div>
-      <div className="card flex-fill">
-        <NavLink className="btn p-5 fw-bold" exact to="/mi-cuenta/borrar" activeClassName={'nav-active'}>
-          Borrar mi cuenta
-        </NavLink>
-      </div>
+    <div className="list-group">
+      <NavLink
+        className="list-group-item"
+        exact
+        to="/mi-cuenta"
+        activeClassName="flama-active"
+      >
+        Mis Datos
+      </NavLink>
+      <NavLink
+        className="list-group-item"
+        exact
+        to="/mi-cuenta/pedidos"
+        activeClassName="flama-active"
+      >
+        Mis Pedidos
+      </NavLink>
+      <NavLink
+        className="list-group-item"
+        exact
+        to="/mi-cuenta/restablecer-contrasena"
+        activeClassName="flama-active"
+      >
+        Restablecer Contraseña
+      </NavLink>
+      <NavLink
+        className="list-group-item"
+        exact
+        to="/mi-cuenta/borrar"
+        activeClassName="flama-active"
+      >
+        Borrar mi cuenta
+      </NavLink>
     </div>
   );
 };
 
 export default React.memo(NavUser);
-
-

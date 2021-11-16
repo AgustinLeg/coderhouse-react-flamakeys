@@ -5,10 +5,12 @@ import NavUser from "../../pages/User/components/NavUser";
 import { getFirestore } from "../../services/getFirebase";
 
 import CartWidget from "../CartWidget/CartWidget";
+import Spinner from "../Stateless/Spinner/Spinner";
 import UserWidget from "../UserWidget/UserWidget";
 
 const NavBar = () => {
   const [categories, setCategories] = useState(null);
+  const [loading, setLoading] = useState(false)
   const location = useLocation()
   const path = location.pathname.slice(1,10);
 
@@ -28,12 +30,11 @@ const NavBar = () => {
 
   return (
     <>
-    <div className="container-lg px-0 py-2">
       {categories && (
-        <>
+        <div className="container-lg px-0 py-2">
         <div className="row">
           <div className="col-8 col-lg-9">
-            <nav className="navbar navbar-light navbar-expand-lg bg-light w-100 p-0">
+            <nav className="navbar navbar-light navbar-expand-lg bg-white w-100 p-0">
               <div className="container-fluid">
                 <h1>
                   <NavLink
@@ -70,11 +71,7 @@ const NavBar = () => {
                         <li key={cat.id} className="nav-item">
                           <NavLink
                             exact
-                            to={
-                              cat.key.length > 1
-                                ? `/categoria/${cat.key}`
-                                : cat.key
-                            }
+                            to={`/categoria/${cat.key}`}
                             className="nav-link"
                             activeClassName="active"
                           >
@@ -93,24 +90,24 @@ const NavBar = () => {
                     data-bs-target="#offcanvasNavbar"
                     aria-controls="offcanvasNavbar"
                   >
-                    <span className="navbar-toggler-icon"></span>
+                    <span className="navbar-toggler-icon">
+                    </span>
                   </button>
                 </div>
               </div>
             </nav>
           </div>
           <div className="col-4 col-lg-3 d-flex justify-content-center align-items-center">
-            <UserWidget />
-
-            <CartWidget />
+            <UserWidget setLoading={setLoading}/>
+            <CartWidget path={path}/>
           </div>
         </div>
-        </>
+        </div>
       )}
-    </div>
     {path === 'mi-cuenta' && <NavUser />}
+    {loading && <div className='position-fixed bg-dark w-100 h-100 top-0 end-0 zindex-dropdown bg-opacity-25'><Spinner /></div>}
     </>
   );
 };
 
-export default NavBar;
+export default React.memo(NavBar);

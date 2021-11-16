@@ -1,16 +1,27 @@
-import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link, NavLink, useHistory } from "react-router-dom";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
+
 import { useAuthContext } from "../../context/authContext";
 
-const UserWidget = () => {
+const UserWidget = ({setLoading}) => {
   const { currentUser, logout } = useAuthContext();
   const history = useHistory();
 
-  const cerrarSesion = () => {
-    logout();
-    history.push("/");
+
+  console.log(currentUser)
+  const cerrarSesion = async () => {
+    setLoading(true)
+    try {
+      await logout();
+      setLoading(false)
+      history.push("/");
+    } catch (error) {
+      setLoading(false)
+      console.error(error)
+    }
   };
 
   return (
@@ -18,7 +29,7 @@ const UserWidget = () => {
       {currentUser ? (
         <div className="btn-group" role="group">
           <button
-            id="btnGroupDrop1"
+            id="userDrop"
             type="button"
             className="btn btn-dark dropdown-toggle"
             data-bs-toggle="dropdown"
@@ -26,7 +37,7 @@ const UserWidget = () => {
           >
             Mi Cuenta
           </button>
-          <ul className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+          <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="userDrop">
             <li>
               <Link to="/mi-cuenta" className="dropdown-item">
                 Configurar Cuenta
@@ -55,4 +66,4 @@ const UserWidget = () => {
   );
 };
 
-export default UserWidget;
+export default React.memo(UserWidget);

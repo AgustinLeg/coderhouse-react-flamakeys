@@ -1,22 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
+
 import { useAuthContext } from "../../context/authContext";
 import { useCartContext } from "../../context/cartContext";
 
+import useError from "../../hooks/useError";
 import { useForm } from "../../hooks/useForm";
 import useNewOrder from "../../hooks/useNewOrder";
 
-const CheckoutBox = ({setLoader}) => {
-  const {newOrder} = useNewOrder()
-  const {currentUser} = useAuthContext()
-  const {clearCart} = useCartContext()
+import Error from "../../components/Error/Error";
+
+const CheckoutBox = ({ setLoader }) => {
+  const { newOrder, errorCheckout } = useNewOrder();
+  const { currentUser } = useAuthContext();
+  const { clearCart } = useCartContext();
+  const { error, newError } = useError();
+  const [msgError, setMsgError] = useState("");
   const [values, handleInputChange, reset] = useForm({
-    given_name: '',
+    given_name: "",
     family_name: "",
     email: "",
     direccion: "",
     telefono: "",
-    uid:currentUser?.uid || null
   });
   const { given_name, family_name, email, direccion, telefono } = values;
   const history = useHistory();
@@ -30,19 +35,23 @@ const CheckoutBox = ({setLoader}) => {
       direccion.trim() === "" ||
       telefono.trim() === ""
     ) {
-      e.target.className += ' was-validated'
+      e.target.classList.add("was-validated");
       return;
     }
+    setLoader(true);
     try {
-      setLoader(true)
-      await newOrder(values)
-      setTimeout(() => {
-        reset();
-        setLoader(false)
-        history.push('/finalizar-compra/detalle-compra')
-        clearCart()
-      }, 3000);
-    } catch (error) {}
+      await newOrder(values, currentUser.uid || null);
+      console.log("paso");
+      setLoader(false);
+      reset();
+      history.push("/finalizar-compra/detalle-compra");
+      clearCart();
+    } catch (error) {
+      console.log('error');
+      setLoader(false);
+      setMsgError(errorCheckout.msg);
+      newError();
+    }
   };
 
   return (
@@ -111,7 +120,9 @@ const CheckoutBox = ({setLoader}) => {
               onChange={handleInputChange}
               required
             />
-            <div className="invalid-feedback">Porfavor ingresa tu direccion</div>
+            <div className="invalid-feedback">
+              Porfavor ingresa tu direccion
+            </div>
           </div>
           <div className="col-md-12">
             <label htmlFor="telefonoValidacion" className="form-label">
@@ -127,11 +138,17 @@ const CheckoutBox = ({setLoader}) => {
               required
             />
           </div>
-          <div className="col-12 d-flex flex-column justify-content center">
-            <button type="submit" className="btn btn-primary my-4">
-              Finalizar Compra
-            </button>
-          </div>
+          {error ? (
+            <>
+              <Error msg={msgError} />
+            </>
+          ) : (
+            <div className="col-12 d-flex flex-column justify-content center">
+              <button type="submit" className="btn btn-dark my-4">
+                Finalizar Compra
+              </button>
+            </div>
+          )}
         </form>
       </div>
     </div>

@@ -4,18 +4,17 @@ import useFormatPrice from "../../hooks/useFormatPrice";
 import ItemCount from "../ItemCount/ItemCount";
 
 const CartItem = ({ item, removeItem }) => {
-  const { updateItem } = useCartContext();
+  const { addItem } = useCartContext();
   const { id, imgURL, nombre, total, cantidad, stock } = item;
   const [cantidadCart, setCantidadCart] = useState(cantidad);
-
   
   useEffect(() => {
-    updateItem({
+    addItem({
       ...item,
       cantidad: cantidadCart,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cantidadCart,item]);
+  }, [cantidadCart]);
 
   return (
     <div className="card mb-5 border-0 p-2">
@@ -34,7 +33,7 @@ const CartItem = ({ item, removeItem }) => {
             </h5>
             <ItemCount
               stock={stock}
-              cantidad={cantidadCart}
+              cantidad={cantidad}
               setCantidad={setCantidadCart}
               width="120px"
             />

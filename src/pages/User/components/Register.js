@@ -148,7 +148,7 @@ const Register = () => {
         </div>
         {error.estado && <Error msg={error.msg} tipo={error.tipo}/>}
         <div className="col-12 d-flex flex-column justify-content center">
-          <button type="submit" className="btn btn-primary my-4">
+          <button type="submit" className="btn btn-dark my-4">
             Registrarme
           </button>
           <Link to="/login" className="btn">

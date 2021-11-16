@@ -1,17 +1,19 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { faUserLock } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useForm } from "../../../hooks/useForm";
-import Error from "../../../components/Error/Error";
+
+import { useAuthContext } from "../../../context/authContext";
+
 import useError from "../../../hooks/useError";
-import useAuthContext from "../../../context/authContext";
+import { useForm } from "../../../hooks/useForm";
+
+import Error from "../../../components/Error/Error";
+import Spinner from "../../../components/Stateless/Spinner/Spinner";
 
 const Login = () => {
   const { login, loginWithGoogle} = useAuthContext();
   const {error,newError} = useError()
   const history = useHistory();
+  const [loading, setLoading] = useState(false)
 
   const [values, handleInputChange] = useForm({
     email:'',
@@ -22,63 +24,70 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(email.trim() === '' || password.trim() === ''){
-      newError('Todos los campos son obligatorios','danger',2500)
+      newError('Todos los campos son obligatorios',2500)
       return;
     }
+    setLoading(true)
     try {
       await login(email, password);
+      setLoading(false)
       history.push("/");
     } catch (error) {
       console.log(error.code)
+      setLoading(false)
       switch(error.code){
         case 'auth/user-not-found':
-          newError('No encontramos ningun usuario con ese mail, Intenta crear una cuenta','warning')
+          newError('No encontramos ningun usuario con ese mail, Intenta crear una cuenta')
           break
         case 'auth/wrong-password':
-          newError('El Mail o la Contraseña son incorrectos','warning')
+          newError('El Mail o la Contraseña son incorrectos')
           break;
         case 'auth/too-many-requests':
-          newError('Haz intentado muchas veces, intenta de nuevo en 5 minutos','warning')
+          newError('Haz intentado muchas veces, intenta de nuevo en 5 minutos')
           break;
         default:
-          newError('Ups, algo salio mal intenta racargando la pagina','danger')
+          newError('Ups, algo salio mal intenta racargando la pagina')
           break;
       }
     }
   };
   
   const loginWithSocial = async() =>{
-    await loginWithGoogle();
-    history.push('/')
+    setLoading(true)
+    try {
+      await loginWithGoogle();
+      setLoading(false)
+      history.push('/')
+    } catch (error) {
+      setLoading(false)
+      newError('Ups, algo salio mal intenta racargando la pagina')
+    }
   }
 
 
   return (
     <div className="container my-5 pt-5">
       <div className="row d-flex justify-content-center align-items-center">
-        <div className="col" style={{ maxWidth: "600px" }}>
+        <div className="col" style={{ maxWidth: "500px" }}>
           <div className="card">
             <div className="card-body">
-              <h5 className="card-title text-center">Iniciar Sesion</h5>
+              <h5 className="card-title fw-bold fs-3 text-black">Iniciar Sesion</h5>
             </div>
             <div className="card-body">
               <form onSubmit={handleSubmit}>
-                <div className="col-auto mb-3">
+                <div className="col-auto mb-4">
                   <div className="input-group">
                     <label
-                      className="visually-hidden"
+                      className="w-100 fw-bold text-uppercase"
+                      style={{letterSpacing:"3px"}}
                       htmlFor="autoSizingInputGroup"
                     >
-                      Contraseña
+                      Email
                     </label>
-                    <div className="input-group-text">
-                      <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
-                    </div>
                     <input
                       type="text"
                       className="form-control"
                       id="formGroupExampleInput"
-                      placeholder="Ingresa tu correo..."
                       name="email"
                       value={email}
                       onChange={handleInputChange}
@@ -86,22 +95,19 @@ const Login = () => {
                     
                   </div>
                 </div>
-                <div className="col-auto mb-3">
+                <div className="col-auto mb-4">
                   <label
-                    className="visually-hidden"
+                    className="w-100 fw-bold text-uppercase"
+                    style={{letterSpacing:"3px"}}
                     htmlFor="autoSizingInputGroup"
                   >
                     Contraseña
                   </label>
                   <div className="input-group">
-                    <div className="input-group-text">
-                      <FontAwesomeIcon icon={faUserLock}></FontAwesomeIcon>
-                    </div>
                     <input
                       type="password"
                       className="form-control"
                       id="autoSizingInputGroup"
-                      placeholder="Ingresa tu contraseña..."
                       autoComplete="false"
                       name="password"
                       value={password}
@@ -118,20 +124,14 @@ const Login = () => {
                   <button className="btn btn-dark w-100" type="submit">
                     Iniciar Sesion
                   </button>
+                  <button className="btn btn-danger w-100 mt-3" onClick={loginWithSocial}>Continuar con Google</button>
                 </div>
               </form>
-            </div>
-            <div className="card-body">
-              <div className="card-text text-center d-flex flex-column justify-content-center align-items-center">
-                <span>Iniciar Sesión con Redes Sociales</span>
-                <div className="d-grid gap-2 w-100 my-3">
-                  <button className="btn btn-danger" onClick={loginWithSocial}>Continuar con Google</button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </div>
+      {loading && <div className='position-fixed bg-dark w-100 h-100 top-0 end-0 zindex-dropdown bg-opacity-25'><Spinner /></div>}
     </div>
   );
 };

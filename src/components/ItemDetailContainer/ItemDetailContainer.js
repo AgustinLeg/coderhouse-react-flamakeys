@@ -13,14 +13,14 @@ const ItemDetailContainer = () => {
 
   return (
     <div
-      className="container-fluid align-middle flex-column mt-5 pt-5"
+      className="container-fluid align-middle flex-column mt-5"
       style={{ height: "100vh" }}
     >
       {loading
         ? <Loader />
         : 
         <> 
-        <Link to="/" className="btn btn-danger ">
+        <Link to="/" className="btn btn-dark rounded-0">
             Volver
         </Link>
         <div className="container">
@@ -33,7 +33,6 @@ const ItemDetailContainer = () => {
         </div>
         </>
       }
-      
     </div>
   );
 };

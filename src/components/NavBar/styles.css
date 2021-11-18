@@ -1,0 +1,42 @@
+/* CARRITO */
+
+#SideCart.active {
+    transform: translateX(0);
+  }
+  
+  .sidenav {
+    height: 100%;
+    width: 410px;
+    position: fixed;
+    z-index: 20000;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding: 10px;
+    transform-origin: left center;
+    transform: translateX(500px);
+    box-shadow: 6px 0px 10px rgb(0 0 0 / 40%);
+  }
+  
+  .backdrop-cart {
+    visibility: hidden;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 11000;
+  }
+  
+  .backdrop-cart.active {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 28px;
+    margin-left: 50px;
+  }

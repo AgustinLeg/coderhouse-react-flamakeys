@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  margin-top: 100px;
+  box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -17,6 +17,10 @@ code {
 .quantity-item::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.active{
+  color: grey;
 }
 
 .flama-active {
@@ -43,47 +47,9 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-/* CARRITO */
-
-#SideCart.active {
-  transform: translateX(0);
-}
-
-.sidenav {
-  height: 100%;
-  width: 410px;
-  position: fixed;
-  z-index: 20000;
-  top: 0;
-  right: 0;
-  background-color: #fff;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding: 10px;
-  transform-origin: left center;
-  transform: translateX(500px);
-  box-shadow: 6px 0px 10px rgb(0 0 0 / 40%);
-}
-
-.backdrop-cart {
-  visibility: hidden;
-  cursor: pointer;
-  opacity: 0;
-  z-index: 11000;
-}
-
-.backdrop-cart.active {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 0.5s ease;
-}
-
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 28px;
-  margin-left: 50px;
+.format-link{
+  text-decoration: none;
+  color: #fff;
 }
 
 #main {
@@ -96,6 +62,20 @@ input[type="number"] {
   padding: 1000px 50px 0 50px;
 }
 
+.main-content{
+  min-height: 100vh;
+  height: 100%;
+}
+
+.img-coderhouse{
+  width: 150px;
+}
+
+.card__container{
+  display: grid;
+  grid-gap: 12px;
+  grid-template-columns: repeat(1, 1fr);
+}
 
 @media screen and (max-width: 450px) {
   .sidenav {
@@ -111,5 +91,10 @@ input[type="number"] {
   .modal-style {
     padding: 0;
   }
+  .card__container{
+    grid-template-columns: repeat(2, 1fr);
+  }
   
 }
+
+

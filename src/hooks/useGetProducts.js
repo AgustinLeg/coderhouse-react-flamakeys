@@ -31,6 +31,8 @@ const useGetProducts = () => {
     getData()
   }, [categoria]);
 
+
+  
   return { items, categoria, loading };
 };
 

@@ -11,7 +11,6 @@ const UserWidget = ({setLoading}) => {
   const history = useHistory();
 
 
-  console.log(currentUser)
   const cerrarSesion = async () => {
     setLoading(true)
     try {

@@ -6,8 +6,8 @@ import useFormatPrice from '../../hooks/useFormatPrice';
 const Item = ({item}) => {
     const {nombre,stock,imgURL,precio,id} = item
     return (
-            <div  className="col-12  col-lg-3 m-4 m-0 p-0">
-                <Link to={`/producto/${id}`} className="card m-auto border-0 position-relative text-black text-decoration-none">
+            <div  className="col-12 col-md-6 col-lg-3 m-0 p-0 position-relative">
+                <Link to={`/producto/${id}`} className="card m-auto border-0 text-black text-decoration-none">
                     {stock === 0 && <span className="position-absolute top-0 start-100 translate-middle bg-danger text-white text-center rounded" style={{width:'75px'}}>Sin Stock</span>}
                     <img src={imgURL} className="card-img-top" alt={`imagen de ${nombre}`} />
                     <div className="card-body text-start bg-white">

@@ -13,8 +13,6 @@ const AuthProvider = ({ children }) => {
     auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
     });
-    console.log('ejecutado')
-
   }, [currentUser]);
 
   const newUser = (

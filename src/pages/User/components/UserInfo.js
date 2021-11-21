@@ -1,113 +1,139 @@
-import React, { useState } from "react";
-import { useAuthContext } from "../../../context/authContext";
-import { useForm } from "../../../hooks/useForm";
-import Error from "../../../components/Error/Error";
-import useError from "../../../hooks/useError";
-import Spinner from "../../../components/Stateless/Spinner/Spinner";
+import React from "react";
 
-const UserInfo = ({ user }) => {
-  const { nombre, apellido, email, telefono, id } = user;
-  const { updateUser } = useAuthContext();
-  const [values, handleInputChange] = useForm({
-    nombre,
-    apellido,
-    email,
-    telefono,
+import useForm from "../../../hooks/useForm";
+
+import { useUserContext } from "../../../context/userContext";
+import { TostMessage } from "../../../components/Alerts/Alerts";
+
+const UserInfo = ({ callback, btnText }) => {
+  const { user } = useUserContext();
+
+  const { values, handleInputChange } = useForm({
+    nombre: user?.nombre || "",
+    apellido: user?.apellido || "",
+    email: user?.email || "",
+    telefono: user?.telefono || "",
   });
 
-  const { error, newError } = useError();
-  const [loader, setLoader] = useState(false);
-  const [dataUpdate, setDataUpdate] = useState(false);
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoader(true);
-    try {
-      console.log('inicio')
-      console.log(updateUser(id, values));
-      console.log('fin')
-      setLoader(false);
-      setDataUpdate(true);
-    } catch (error) {
-      setLoader(false);
-      newError("Algo salio mal! , intenta refrescando la pagina");
+    if (
+      values.nombre.trim() === "" ||
+      values.apellido.trim() === "" ||
+      values.email.trim() === "" ||
+      values.telefono.trim() === ""
+    ) {
+      return TostMessage.fire({icon: "error", title:"Todos los campos son obligatorios"})
+    }else{
+      callback(values)
     }
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: "800px" }}>
-      <h2 className="title text-center my-5 fw-bold">Mis Datos</h2>
-      <form className="row g-3" onSubmit={handleSubmit}>
-        <div className="col-md-6">
-          <label htmlFor="inputNombre" className="form-label">
-            Nombre
-          </label>
-          <input
+    <>
+      <div className="flex-auto py-10 pt-0 relative z-10">
+        <h6 className="text-gray-900 text-sm mt-3 mb-6 font-bold uppercase">
+          Informacion Personal
+        </h6>
+        <form onSubmit={handleSubmit} className="items-center flex flex-col">
+          <div className="flex flex-wrap p-5">
+            <div className="w-full lg:w-6/12 px-4">
+              <div className="relative w-full mb-3">
+                <label
+                  className="block uppercase text-gray-600 text-xs font-bold mb-2"
+                  htmlFor="inputNombre"
+                >
+                  Nombre
+                </label>
+                <input
+                  type="text"
+                  className="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  id="inputNombre"
+                  name="nombre"
+                  value={values.nombre}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+            <div className="w-full lg:w-6/12 px-4">
+              <div className="relative w-full mb-3">
+                <label
+                  className="block uppercase text-gray-600 text-xs font-bold mb-2"
+                  htmlFor="inputApellido"
+                >
+                  Apellido
+                </label>
+                <input
+                  type="text"
+                  className="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  id="inputApellido"
+                  name="apellido"
+                  value={values.apellido}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+            <div className="w-full lg:w-6/12 px-4">
+              <div className="relative w-full mb-3">
+                <label
+                  className="block uppercase text-gray-600 text-xs font-bold mb-2"
+                  htmlFor="correoInput"
+                >
+                  Email
+                </label>
+                {user ? <p
             type="text"
-            className="form-control"
-            id="inputNombre"
-            name="nombre"
-            value={values.nombre}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="col-md-6">
-          <label htmlFor="inputApellido" className="form-label">
-            Apellido
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="inputApellido"
-            name="apellido"
-            value={values.apellido}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="col-12">
-          <label htmlFor="inputEmail" className="form-label">
-            Email
-          </label>
-          <p className="form-control" id="inputEmail">
-            {email}
-          </p>
-        </div>
-        <div className="col-12">
-          <label htmlFor="inputTelefono" className="form-label">
-            Telefono
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="inputAddress"
-            name="telefono"
-            value={values.telefono}
-            onChange={handleInputChange}
-          />
-          {values.telefono.length === 0 &&
-            "No contamos con tu numero de celular :( "}
-        </div>
-        <div className="col-12 d-flex flex-column justify-content center">
-          <button type="submit" className="btn btn-dark my-4">
-            Actualizar mis datos
+            className="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+          >
+            {values.email}
+          </p>: <input
+              type="email"
+              className="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+              id="correoInput"
+              name="email"
+              value={values.email}
+              onChange={handleInputChange}
+              required
+            /> }
+                
+              </div>
+            </div>
+            <div className="w-full lg:w-6/12 px-4">
+              <div className="relative w-full mb-3">
+                <label
+                  className="block uppercase text-gray-600 text-xs font-bold mb-2"
+                  htmlFor="inputPhone"
+                >
+                  Telefono
+                </label>
+                <input
+                  type="number"
+                  className="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  id="inputPhone"
+                  name="telefono"
+                  min={0}
+                  value={values.telefono}
+                  onChange={handleInputChange}
+                />
+
+                {values.telefono === "" && user ? (
+                  <span class="text-sm mx-2">
+                    No contamos con tu numero de celular
+                  </span>
+                ) : null}
+              </div>
+            </div>
+          </div>
+          <button
+            type="submit"
+            className="bg-gray-700 hover:bg-gray-800 my-5 text-white font-bold py-2 px-4 border-b-4 border-gray-900 hover:border-blue rounded"
+          >
+            {btnText}
           </button>
-        </div>
-      </form>
-      {dataUpdate && (
-        <p
-          className="text-center my-4 text-success border border-success rounded-0 p-2"
-          role="alert"
-        >
-          Datos Actualizado Correctamente
-        </p>
-      )}
-      {error.estado && <Error msg={error.msg} />}
-      {loader && (
-        <div className="position-fixed bg-dark w-100 h-100 top-0 end-0 zindex-dropdown bg-opacity-25">
-          <Spinner />
-        </div>
-      )}
-    </div>
+        </form>
+        <hr className="mt-6 border-b-1 border-gray-300" />
+      </div>
+    </>
   );
 };
 

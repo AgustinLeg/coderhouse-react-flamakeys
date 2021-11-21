@@ -60,17 +60,17 @@ const AuthProvider = ({ children }) => {
   };
 
   const deleteUser = (id) => {
+    console.log(id)
     dbQuery.collection("usuarios").doc(id).delete();
     return auth.currentUser.delete();
   };
 
-  const updatePassword = (password) => {
-    auth.currentUser.updatePassword(password);
-  };
+  const updatePassword = (password) => auth.currentUser.updatePassword(password);
+  ;
 
   const updateUser = async (id, data) => {
-    const docRef = await dbQuery.collection("usuarios").doc(id);
-    return docRef.update(data);
+    const user = await dbQuery.collection("usuarios").doc(id);
+    return user.update(data)
   };
 
   return (

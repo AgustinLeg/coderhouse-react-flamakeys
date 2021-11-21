@@ -5,9 +5,9 @@ import { getFirestore } from "../services/getFirebase";
 
 const useNewOrder = () => {
   const db = getFirestore();
-  const [errorCheckout, setErrorCheckout] = useState({msg:'',items:[]})
+  const [errorCheckout, setErrorCheckout] = useState({ msg: "", items: [] });
   const { items, total, setOrder } = useCartContext();
-  const newOrder = async (data,uid) => {
+  const newOrder = async (data, uid) => {
     const itemsBuy = items.map((item) => ({
       nombre: item.nombre,
       id: item.id,
@@ -42,21 +42,21 @@ const useNewOrder = () => {
       }
     });
 
-      if (outOfStock.length > 0){
+    if (outOfStock.length === 0) {
+      try {
+        batch.commit();
+        return db.collection("orders").add(order)
+          .then((resp) => setOrder({ id: resp.id, order }))
+          .catch((err) => console.error(err));
+      } catch (error) {
         setErrorCheckout({
           ...errorCheckout,
-          msg:'Estos productos no tienen stock',
-          items: outOfStock
-        })
-        throw new Error('Estos productos no tienen stock')
+          msg: "Estos productos no tienen stock",
+          items: outOfStock,
+        });
+        return errorCheckout;
       }
-
-      batch.commit();
-      return db.collection("orders")
-        .add(order)
-        .then((resp) => setOrder({ id: resp.id, order }))
-        .catch((err) => console.error(err));
-  
+    }
   };
 
   return { newOrder, errorCheckout };

@@ -1,11 +1,7 @@
 .sk-fading-circle {
-  margin: 100px auto;
   width: 40px;
   height: 40px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
 }
 
 .sk-fading-circle .sk-circle {

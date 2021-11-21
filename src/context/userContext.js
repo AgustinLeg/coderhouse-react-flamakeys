@@ -8,14 +8,14 @@ export const useUserContext = () => useContext(UserContext);
 const UserProvider = ({ children }) => {
   const { currentUser } = useAuthContext();
   const [user, setUser] = useState(null);
-  const [orders, setOrders] = useState([])
-  const db = getFirestore();
+  const [loading, setLoading] = useState(true);
+  const [orders, setOrders] = useState([]);
 
-
-  useEffect(() => {    
+  useEffect(() => {
+    const db = getFirestore();
     const getData = () => {
       try {
-        if(currentUser){
+        if (currentUser) {
           db.collection("usuarios")
             .where("uid", "==", currentUser.uid)
             .get()
@@ -25,39 +25,45 @@ const UserProvider = ({ children }) => {
                 ...user.data(),
               }));
               setUser(data[0]);
+            })
+            // ORDERS
+            .then(() => {
+              db.collection("orders")
+                .where("uid", "==", currentUser.uid)
+                .get()
+                .then((resp) => {
+                  const data = resp.docs.map((order) => ({
+                    id: order.id,
+                    fecha: order.data().date.toDate().toString().slice(3, 16),
+                    ...order.data(),
+                  }));
+                  setOrders(data);
+                })
+                .catch((error) => {
+                  console.error("no pudimos obtener los pedidos", error);
+                });
+                setLoading(false);
             });
-        // ORDERS
-        db.collection('orders').where('uid','==', currentUser.uid).get()
-        .then((resp) => {
-          const data = resp.docs.map((order) => ({
-            id: order.id,
-            fecha: order.data().date.toDate().toString().slice(3,16),
-            ...order.data(),
-          }));
-          setOrders(data);
-        })
-        .catch((error) => {console.error('no pudimos obtener los pedidos',error)})
         }
       } catch (error) {
         setUser(null);
-        console.error('No estas logeado, porfavor inicia sesion o crea una cuenta');
+        console.error(
+          "No estas logeado, porfavor inicia sesion o crea una cuenta"
+        );
       }
     };
     getData();
     return () => {
       setUser(null);
     };
-  }, [currentUser,db]);
+  }, [currentUser]);
 
-  
-
-
-  
   return (
     <UserContext.Provider
       value={{
         user,
         orders,
+        loading
       }}
     >
       {children}

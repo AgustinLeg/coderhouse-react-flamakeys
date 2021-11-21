@@ -1,124 +1,100 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { NavLink, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes, faBars } from "@fortawesome/free-solid-svg-icons";
+
+import { NavLink } from "react-router-dom";
+import { toggleCart, toggleNav } from "../../helpers";
 import useCategories from "../../hooks/useCategories";
-import NavUser from "../../pages/User/components/NavUser";
 
 import CartWidget from "../CartWidget/CartWidget";
-import Spinner from "../Stateless/Spinner/Spinner";
 import UserWidget from "../UserWidget/UserWidget";
-
-import "./styles.css";
+import FavWidget from "../FavWidget/FavWidget";
 
 const NavBar = () => {
-
-  const [loading, setLoading] = useState(false)
-  const location = useLocation();
-  const path = location.pathname.slice(1, 10);
-  const {categories} = useCategories()
+  const { categories } = useCategories();
 
   return (
     <>
       {categories && (
         <>
-          <div className="row w-100 bg-dark m-0 text-white text-center">
-            <p className="py-1 m-0">
-              Proyecto Final de
-              <a
-                href="https://www.coderhouse.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="CoderHouse"
-                className="format-link mx-2"
-              >
-                CoderHouse
-              </a>
-            </p>
-          </div>
-          <div className="container-lg m-auto px-0 py-2">
-            <div className="row">
-              <div className="col-8 col-lg-9">
-                <nav className="navbar navbar-light navbar-expand-xl bg-white w-100 p-0">
-                  <div className="container-fluid">
-                    <h1 className="w-25">
-                      <NavLink
-                        className="navbar-brand mb-0 h1"
-                        to="/"
-                        style={{
-                          fontFamily: "Fraunces,sans-serif",
-                          fontWeight: "900",
-                        }}
-                      >
-                        <span className="text-danger">Flama</span>Keys
-                      </NavLink>
-                    </h1>
-                    <div
-                      className="offcanvas offcanvas-end"
-                      tabIndex="-1"
-                      id="offcanvasNavbar"
-                      aria-labelledby="offcanvasNavbarLabel"
-                    >
-                      <div className="offcanvas-header">
-                        <h5
-                          className="offcanvas-title"
-                          id="offcanvasNavbarLabel"
-                        >
-                          Menu
-                        </h5>
-                        <button
-                          type="button"
-                          className="btn-close text-reset"
-                          data-bs-dismiss="offcanvas"
-                          aria-label="Close"
-                        ></button>
+          <section className="relative mx-auto">
+            <nav className="flex justify-between bg-white text-gray-900 w-screen md:px-2">
+              <div className="md:px-5 xl:px-12 py-4 flex w-full items-center">
+                <NavLink
+                  exact
+                  to="/"
+                  className="text-3xl font-bold font-heading"
+                >
+                  FlamaKeys
+                </NavLink>
+
+                <ul className="md:flex mx-auto font-heading space-x-12">
+                  <div className="sidebar bg-white w-full h-screen lg:h-auto space-y-4 py-7 px-2 absolute inset-y-0 right-0 transform translate-x-full lg:relative lg:translate-x-0 transition duration-500 ease-in-out lg:w-full lg:space-y-0 lg:py-0 z-40 lg:z-20">
+                    <nav className="h-full">
+                      <div className="lg:hidden">
+                        <h2 className="font-bold my-2">Menu</h2>
+                        <hr />
                       </div>
-                      <div className="offcanvas-body w-100">
-                        <ul className="navbar-nav w-100 justify-content-around">
-                          {categories.map((cat) => {
-                            return (<li key={cat.id} className="nav-item dropdown">
-                              <NavLink
-                                exact
-                                to={cat.key === '' ? '/productos' : `/categoria/${cat.key}`}
-                                className="nav-link fs-6 text-black"
-                                activeClassName="active"
-                                >
-                                {cat.nombre}
-                              </NavLink>
-                            </li>)
-                          })}
-                        </ul>
-                      </div>
-                    </div>
-                    <div className="actionsNavbar d-flex">
                       <button
-                        className="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasNavbar"
-                        aria-controls="offcanvasNavbar"
+                        className="absolute top-5 right-5 font-extrabold lg:hidden text-2xl"
+                        onClick={toggleNav}
                       >
-                        <span className="navbar-toggler-icon"></span>
+                        <FontAwesomeIcon
+                          icon={faTimes}
+                          className="fs-4 mx-2 d-block"
+                        ></FontAwesomeIcon>
                       </button>
-                    </div>
+                      <div className="nav__conatiner w-full lg:pr-10 flex justify-start flex-col lg:flex-row h-full pb-10 lg:pb-0">
+                        {categories.map((cat) => (
+                          <li key={cat.id}>
+                            <NavLink
+                              exact
+                              to={
+                                cat.key === " "
+                                  ? "/productos"
+                                  : `/categoria/${cat.key}`
+                              }
+                              className="block lg:inline-block px-2 lg:mx-4 my-5 lg:my-0 hover:text-red-500"
+                              activeClassName="text-red-500 lg:border-b-4 border-red-500"
+                              onClick={toggleNav}
+                            >
+                              {cat.nombre}
+                            </NavLink>
+                          </li>
+                        ))}
+                      </div>
+                    </nav>
                   </div>
-                </nav>
+                </ul>
               </div>
-              <div className="col-4 col-lg-3 d-flex justify-content-center align-items-center">
-                <UserWidget setLoading={setLoading} />
-                <CartWidget path={path} />
+              <div className="flex items-center justify-between text-xl pr-0 md:pr-5">
+                <CartWidget />
+                <FavWidget />
+                <UserWidget />
+                <button
+                  className="lg:hidden navbar-burger self-center text-2xl mr-5 md:mr-5 "
+                  onClick={toggleNav}
+                >
+                  <FontAwesomeIcon
+                    icon={faBars}
+                    className="fs-4 mx-2 d-block"
+                  ></FontAwesomeIcon>
+                </button>
               </div>
-            </div>
-            {path === "mi-cuenta" && <NavUser />}
-          </div>
+            </nav>
+          </section>
+          <div
+            className="fixed w-screen h-screen bg-navbar right-0 transform translate-x-full z-10 bg-black bg-opacity-80	transition duration-400 lg:hidden"
+            onClick={toggleNav}
+          ></div>
+          <div
+            className="fixed w-screen h-screen bg-cart-sidebar  right-0 transform translate-x-full z-10 bg-black bg-opacity-80 transition duration-500"
+            onClick={toggleCart}
+          ></div>
         </>
-      )}
-      {loading && (
-        <div className="position-fixed bg-dark w-100 h-100 top-0 end-0 zindex-dropdown bg-opacity-25">
-          <Spinner />
-        </div>
       )}
     </>
   );
 };
-
 export default React.memo(NavBar);

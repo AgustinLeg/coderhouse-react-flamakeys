@@ -1,100 +1,53 @@
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/* ./src/index.css */
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.quantity-item::-webkit-outer-spin-button {
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
-.active{
-  color: grey;
+#root{
+  overflow-x:hidden;
 }
 
-.flama-active {
-  background: rgb(34, 34, 34);
-  color: #fff;
-}
-.flama-active:hover {
-  color: #fff;
-}
-input:focus,
-.btn:focus {
+input:focus {
   outline: none !important;
-  border: 2px solid black !important;
-  box-shadow: none !important;
-}
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
 }
 
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
+button:focus {
+  outline: none !important;
 }
 
-.format-link{
-  text-decoration: none;
-  color: #fff;
+.group:hover .group-hover\:scale-100 { transform: scale(1) }
+.group:hover .group-hover\:-rotate-180 { transform: rotate(180deg) }
+.scale-0 { transform: scale(0) }
+.min-w-32 { min-width: 8rem }
+
+
+.colored-toast.swal2-icon-success {
+  background-color: #00b100 !important;
 }
 
-#main {
-  transition: margin-left 0.5s;
-  padding: 16px;
+.colored-toast.swal2-icon-error {
+  background-color: #ff4141 !important;
 }
 
-
-.modal-style {
-  padding: 1000px 50px 0 50px;
+.colored-toast.swal2-icon-warning {
+  background-color: #ffdd48 !important;
 }
 
-.main-content{
-  min-height: 100vh;
-  height: 100%;
+.colored-toast .swal2-title {
+  color: white;
 }
 
-.img-coderhouse{
-  width: 150px;
+.colored-toast .swal2-close {
+  color: white;
 }
 
-.card__container{
-  display: grid;
-  grid-gap: 12px;
-  grid-template-columns: repeat(1, 1fr);
+.colored-toast .swal2-html-container {
+  color: white;
 }
-
-@media screen and (max-width: 450px) {
-  .sidenav {
-    padding-top: 15px;
-  }
-  .sidenav a {
-    font-size: 18px;
-  }
-
-}
-
-@media screen and (min-width: 768px) {
-  .modal-style {
-    padding: 0;
-  }
-  .card__container{
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-}
-
-

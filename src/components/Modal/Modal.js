@@ -1,38 +1,31 @@
 import React from "react";
 
-const Modal = ({ items, closeModal }) => {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+
+const Modal = ({ children, titulo, showModal, closeModal }) => {
   return (
-    <div className="position-fixed bg-black w-100 h-100 top-0 end-0 zindex-fixed bg-opacity-75 d-flex flex-column bg-opacity-align-items-center justify-content-center overflow-auto modal-style">
-        <div className="d-grid gap-2 col-6 mx-auto mb-5">
-        <button className="btn btn-primary" type="button" onClick={closeModal}>
-          Cerrar
-        </button>
-      </div>
-      <div className="row justify-content-center">
-        {items.map((item) => (
-          <div className="card col-md-4 m-2">
-            <div className="row g-0 justify-content-center">
-              <div className="col-md-4">
-                <img
-                  src={item.imgURL}
-                  className="img-fluid rounded-start"
-                  alt={`Foto Producto de ${item.nombre}`}
-                />
-              </div>
-              <div className="col-md-8">
-                <div className="card-body">
-                  <h5 className="card-title">{item.nombre}</h5>
-                  <p className="card-text">Precio: {item.precio}</p>
-                  <p className="card-text">
-                    <small className="text-muted">
-                      unidades: {item.cantidad}
-                    </small>
-                  </p>
-                </div>
-              </div>
-            </div>
+    <div
+      class={`fixed top-0 left-0 h-screen w-screen flex items-center justify-center  bg-black bg-opacity-80 ${
+        showModal ? "scale-1 " : "scale-0"
+      }`}
+      id="modal"
+    >
+      <div
+        class={`absolute w-full max-w-lg p-5 mx-auto my-auto rounded-xl shadow-lg  bg-white transition duration-300 ${
+          showModal ? "scale-1" : "scale-0"
+        }`}
+      >
+        {titulo && (
+          <div className="w-full flex justify-between h-8 items-center border-b-2 border-gray-black">
+            <h2 className="font-sans text-xl">{titulo}</h2>
+            <button className="text-2xl" onClick={closeModal}>
+              <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
+            </button>
           </div>
-        ))}
+        )}
+
+        {children}
       </div>
     </div>
   );

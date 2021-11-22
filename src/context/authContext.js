@@ -60,7 +60,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const deleteUser = (id) => {
-    console.log(id)
     dbQuery.collection("usuarios").doc(id).delete();
     return auth.currentUser.delete();
   };

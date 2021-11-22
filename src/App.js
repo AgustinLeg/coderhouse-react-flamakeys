@@ -30,8 +30,8 @@ import ScrolltoTop from "./helpers/ScrollToTop";
 function App() {
   return (
     <AuthProvider>
-      <UserProvider>
         <CartProvider>
+      <UserProvider>
           <FavoriteProvider>
             <BrowserRouter>
               <ScrolltoTop />
@@ -91,8 +91,8 @@ function App() {
               <Footer />
             </BrowserRouter>
           </FavoriteProvider>
-        </CartProvider>
       </UserProvider>
+        </CartProvider>
     </AuthProvider>
   );
 }

@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { TostMessage } from "../../components/Alerts/Alerts";
 import CartItem from "../../components/Cart/CartItem";
 import { useCartContext } from "../../context/cartContext";
 import useFormatPrice from "../../hooks/useFormatPrice";
 
 const Cart = () => {
-  const { items, total, cantidad, removeItem } = useCartContext();
-  // const [inputDisscount, setInputDisscount] = useState("");
-
-  // const handleChange = (e) => {
-  //   setInputDisscount(e.target.value);
-  // };
+  const { items, total, cantidad, removeItem, checkDisscount, descuento,isDiscounted} =
+    useCartContext();
+  const [inputDisscount, setInputDisscount] = useState("");
+  const handleChange = (e) => {
+    setInputDisscount(e.target.value);
+  };
+  const handleClick = () => {
+    if(inputDisscount.trim() === ''){
+      return TostMessage.fire({icon: "warning", title:'Tienes que ingresar un cupon'})
+    }else if(isDiscounted){
+      return TostMessage.fire({icon: "error", title:'Ya tiene aplicado un cupon'})
+    }else{
+      checkDisscount(inputDisscount)
+    }
+  };
 
   return (
     <div className="container mx-auto">
@@ -18,7 +28,10 @@ const Cart = () => {
         to="/productos"
         className="flex font-semibold text-red-600 text-sm mt-10 ml-5"
       >
-        <svg className="fill-current mr-2 text-red-600 w-4" viewBox="0 0 448 512">
+        <svg
+          className="fill-current mr-2 text-red-600 w-4"
+          viewBox="0 0 448 512"
+        >
           <path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" />
         </svg>
         Seguir Comprando
@@ -65,7 +78,10 @@ const Cart = () => {
                 data-bs-target="#offCanvasCart"
                 aria-label="Close"
               >
-                <Link to="/" className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase ">
+                <Link
+                  to="/"
+                  className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase "
+                >
                   Quiero Comprar
                 </Link>
               </button>
@@ -88,17 +104,35 @@ const Cart = () => {
               id="promo"
               placeholder="Ingresa tu codigo"
               className="p-2 text-sm w-full"
+              value={inputDisscount}
+              onChange={handleChange}
             />
           </div>
-          <button className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">
+          <button
+            className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase"
+            onClick={handleClick}
+          >
             Aplicar
           </button>
           <div className="border-t mt-8">
+            {descuento.length > 0 && (
+              <>
+                <div className="flex font-semibold justify-between py-6 text-sm uppercase">
+                  <span>Cupon {descuento[0].cupon}</span>
+                  <span>{descuento[0].descuento}%</span>
+                </div>
+              </>
+            )}
+
             <div className="flex font-semibold justify-between py-6 text-sm uppercase">
               <span>Total</span>
               <span>{useFormatPrice(total)}</span>
             </div>
-            <button className="bg-gray-900 font-semibold hover:bg-gray-800  text-sm text-white uppercase w-full" type="button">
+
+            <button
+              className="bg-gray-900 font-semibold hover:bg-gray-800  text-sm text-white uppercase w-full"
+              type="button"
+            >
               <Link to="/finalizar-compra" className="w-100 py-3 block">
                 Finalizar Compra
               </Link>

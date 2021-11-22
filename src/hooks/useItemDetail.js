@@ -16,7 +16,7 @@ const useItemDetail = () => {
         setItemDetail({ id: resp.id, ...resp.data() });
         setLoading(false);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     getData();

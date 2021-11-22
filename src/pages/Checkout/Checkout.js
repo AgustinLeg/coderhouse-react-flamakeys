@@ -15,7 +15,7 @@ import Spinner from "../../components/Stateless/Spinner/Spinner";
 
 const Checkout = () => {
   const { currentUser } = useAuthContext();
-  const { items, cantidad, total} = useCartContext();
+  const { items, cantidad, total,setDescuento} = useCartContext();
   const { newOrder, errorCheckout} = useNewOrder();
   const history = useHistory();
   const { clearCart } = useCartContext();
@@ -28,6 +28,7 @@ const Checkout = () => {
     newOrder(values,id)
       .then(() => {
         setLoading(false)
+        setDescuento([])
         reset();
         history.push("/finalizar-compra/detalle-compra");
         clearCart();

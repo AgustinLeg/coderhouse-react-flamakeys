@@ -35,7 +35,6 @@ const Login = () => {
       setLoading(false);
       history.push("/");
     } catch (error) {
-      console.log(error.code);
       setLoading(false);
       newError();
       switch (error.code) {

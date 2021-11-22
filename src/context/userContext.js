@@ -1,12 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useAuthContext } from "./authContext";
 import { getFirestore } from "../services/getFirebase";
+import { useCartContext } from "./cartContext";
 
 const UserContext = createContext();
 export const useUserContext = () => useContext(UserContext);
 
 const UserProvider = ({ children }) => {
   const { currentUser } = useAuthContext();
+  const { order } = useCartContext();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState(null);
@@ -56,14 +58,14 @@ const UserProvider = ({ children }) => {
     return () => {
       setUser(null);
     };
-  }, [currentUser]);
+  }, [currentUser,order]);
 
   return (
     <UserContext.Provider
       value={{
         user,
         orders,
-        loading
+        loading,
       }}
     >
       {children}

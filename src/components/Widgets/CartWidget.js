@@ -15,7 +15,7 @@ const CartWidget = () => {
   return (
     <div className="cart flex items-center mr-3">
       <button
-        className="flex items-center hover:text-yellow-600 mb-1"
+        className="flex items-center hover:text-red-600 mb-1"
         onClick={toggleCart}
       >
         <FontAwesomeIcon icon={faShoppingBag}></FontAwesomeIcon>

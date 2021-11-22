@@ -52,8 +52,8 @@ const NavBar = () => {
                             <NavLink
                               exact
                               to="/productos"
-                              className="block lg:inline-block px-2 lg:mx-4 my-5 lg:my-0 hover:text-yellow-500"
-                              activeClassName="text-yellow-500 lg:border-b-4 border-yellow-500"
+                              className="block lg:inline-block px-2 lg:mx-4 my-5 lg:my-0 hover:text-red-500"
+                              activeClassName="text-red-500 lg:border-b-4 border-red-500"
                               onClick={toggleNav}
                             >
                               Todos los productos
@@ -68,8 +68,8 @@ const NavBar = () => {
                                   ? "/productos"
                                   : `/categoria/${cat.key}`
                               }
-                              className="block lg:inline-block px-2 lg:mx-4 my-5 lg:my-0 hover:text-yellow-500"
-                              activeClassName="text-yellow-500 lg:border-b-4 border-yellow-500"
+                              className="block lg:inline-block px-2 lg:mx-4 my-5 lg:my-0 hover:text-red-500"
+                              activeClassName="text-red-500 lg:border-b-4 border-red-600"
                               onClick={toggleNav}
                             >
                               {cat.nombre}

@@ -5,7 +5,7 @@ import { getFirestore } from "../services/getFirebase";
 
 const useNewOrder = () => {
   const db = getFirestore();
-  const { items, total, setOrder } = useCartContext();
+  const { items, total, setOrder, descuento} = useCartContext();
   const [errorCheckout, setErrorCheckout] = useState({
     estado: false,
     msg: "Ups hubo un error al finalizar la compra",
@@ -29,6 +29,7 @@ const useNewOrder = () => {
         date: firebase.firestore.Timestamp.fromDate(new Date()),
         total,
         uid: uid,
+        descuento: descuento[0]?.cupon || null
       };
 
       const itemsToUpdate = db.collection("productos").where(

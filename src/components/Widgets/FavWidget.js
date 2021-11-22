@@ -10,7 +10,7 @@ const FavWidget = () => {
   return (
     <>
       <div className="m-0 mx-2 flex items-center">
-        <Link to="/productos/favoritos" className="hover:text-yellow-600">
+        <Link to="/productos/favoritos" className="hover:text-red-600">
           <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon>
         {itemsFav.length > 0 && <span className="flex absolute -mt-10 ml-3">
           <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-red-400 opacity-75"></span>

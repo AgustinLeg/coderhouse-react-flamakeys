@@ -24,10 +24,11 @@ const Home = () => {
         <>
           {categories ? (
             <>
-              <div className="w-screen relative">
-                <img src={banner} alt="" className="w-100" />
-                <div className="absolute top-0 left-0 w-full h-full  text-white flex flex-col items-center justify-end pb-4">
-                  <Link to='/productos' className="border  py-1 px-5 md:py-3  md:px-10 bg-white text-black transition-all">Ver todos los productos</Link>
+              <div className="mx-auto max-w-5xl relative">
+                <img src={banner} alt="banner teclado" className="w-full" />
+                <div className="absolute top-0 right-0 w-3/4 lg:w-1/2 h-full text-white flex flex-col items-center justify-center p-2">
+                  <h3 className="text-xl text-center lg:text-3xl pb-5 font-sans">Las mejores marcas al mejor precio</h3>
+                  <Link to='/productos' className="border py-1 px-3 md:py-3  md:px-10 bg-transparent border-white-1 text-white text-center transition-colors transition-duration-500 hover:bg-white hover:text-black">Ver todos los productos</Link>
                 </div>
               </div>
               <div className="p-4 text-center mx-auto">

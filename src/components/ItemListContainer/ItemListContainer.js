@@ -4,12 +4,12 @@ import useGetProducts from "../../hooks/useGetProducts";
 
 import NotFound from "../../pages/404/NotFound";
 import ItemList from "../ItemList/ItemList";
-import NavBreadCumb from "../NavBreadCumb/NavBreadCumb";
 import Loader from "../Stateless/Loader/Loader";
+import BreadCrumb from "../BreadCrumb/BreadCrumb";
 
 const ItemListContainer = () => {
   const { items, categoria, loading } = useGetProducts();
-
+  const navigation= [{nombre:'productos',path:'/productos'},{nombre:categoria,path:`/categoria/${categoria}`}]
   return (
     <section>
       {loading ? (
@@ -17,9 +17,9 @@ const ItemListContainer = () => {
       ) : (
         <>
           {categoria ? (
-            <NavBreadCumb navigation={[categoria]} />
+            <BreadCrumb navigation={navigation} />
           ) : (
-            <NavBreadCumb />
+            <BreadCrumb navigation={[{nombre:'productos',path:'/productos'}]}/>
           )}
           <div className="container mx-auto mt-5">
             {items.length > 0 ? (

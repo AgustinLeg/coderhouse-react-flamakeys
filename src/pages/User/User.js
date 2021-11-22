@@ -42,7 +42,7 @@ const User = () => {
       ) : (
         <>
           {user ? (
-            <div className="w-full lg:w-8/12 px-4 mx-auto">
+            <div className="w-full lg:w-8/12 my-10 px-4 mx-auto">
               <div className="rounded-t bg-white mb-0 py-6">
                 <div className="text-center flex justify-between">
                   <h6 className="text-gray-900 text-3xl font-bold">

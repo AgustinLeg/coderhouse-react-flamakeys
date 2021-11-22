@@ -11,7 +11,7 @@ import { toggleCart } from "../../helpers";
 import useError from "../../hooks/useError";
 import useFormatPrice from "../../hooks/useFormatPrice";
 
-import Error from "../Error/Error";
+import Error from "../Alerts/Error";
 import ItemCount from "../ItemCount/ItemCount";
 import Button from "../Stateless/Buttons/Button";
 

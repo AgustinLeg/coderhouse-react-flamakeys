@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { useCartContext } from "../../context/cartContext";
 import useFormatPrice from "../../hooks/useFormatPrice";
 import { Link } from "react-router-dom";
-import MiniCartItem from "../../components/CartItem/MiniCartItem";
+import MiniCartItem from "../../components/Cart/MiniCartItem";
 import UserInfo from "../User/components/UserInfo";
 import useNewOrder from "../../hooks/useNewOrder";
 import { useAuthContext } from "../../context/authContext";

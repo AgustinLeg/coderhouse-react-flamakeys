@@ -12,7 +12,6 @@ const FavoriteProvider = ({ children }) => {
   }, [itemsFav]);
   
   const toggleFavItem = (item) => {
-      console.log(itemsFav)
     const existe = itemsFav.some((i) => i.id === item.id);
     if (existe) {
       const itemsUpdate = itemsFav.filter((i) => i.id !== item.id);

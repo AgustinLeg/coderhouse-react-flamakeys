@@ -6,7 +6,7 @@ import { useAuthContext } from "../../../context/authContext";
 import useError from "../../../hooks/useError";
 import useForm from "../../../hooks/useForm";
 
-import Error from "../../../components/Error/Error";
+import Error from "../../../components/Alerts/Error";
 import Spinner from "../../../components/Stateless/Spinner/Spinner";
 
 const Login = () => {

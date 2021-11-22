@@ -1,23 +1,22 @@
 import React from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import Error from "../../../components/Error/Error";
+import Error from "../../../components/Alerts/Error";
 import { useAuthContext } from "../../../context/authContext";
 import useError from "../../../hooks/useError";
 import useForm from "../../../hooks/useForm";
 
 const Register = () => {
   const { register } = useAuthContext();
-  const {values, handleInputChange, reset} = useForm({
+  const { values, handleInputChange, reset } = useForm({
     given_name: "",
     family_name: "",
     email: "",
     password: "",
     telefono: "",
   });
-  console.log(handleInputChange)
   const { given_name, family_name, email, password, telefono } = values;
-  const { error,msgError, newError } = useError();
+  const { error, msgError, newError } = useError();
 
   const history = useHistory();
 
@@ -29,33 +28,35 @@ const Register = () => {
       email.trim() === "" ||
       password.trim() === "" ||
       telefono.trim() === ""
-      ) {
-        newError()
+    ) {
+      newError();
       newError("Todos los campos son obligatorios");
       return;
     } else if (password.trim().length <= 5) {
-      newError()
+      newError();
       newError("la contrasena debe ser mayor a 6 caracteres");
     }
-    try {
-      await register(values);
-      reset();
-      history.push("/");
-    } catch (error) {
-      newError()
-      switch (error.code) {
-        case "auth/weak-password":
-          newError("la contrasena debe ser mayor a 6 caracteres");
-          break;
-        case "auth/email-already-in-use":
-          newError("Ya tenemos una cuenta registrado con ese mail");
-          break;
 
-        default:
-          newError("Algo salio mal, intenta recargando la pagina");
-          break;
-      }
-    }
+    register(values)
+      .then(() => {
+        reset();
+        history.push("/");
+      })
+      .catch(() => {
+        newError();
+        switch (error.code) {
+          case "auth/weak-password":
+            newError("la contrasena debe ser mayor a 6 caracteres");
+            break;
+          case "auth/email-already-in-use":
+            newError("Ya tenemos una cuenta registrado con ese mail");
+            break;
+
+          default:
+            newError("Algo salio mal, intenta recargando la pagina");
+            break;
+        }
+      });
   };
 
   return (
@@ -79,7 +80,9 @@ const Register = () => {
                 <input
                   type="text"
                   id="inputName"
-                  className={`px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 border ${given_name === '' ? 'border-red-600' : 'border-green-600'}`}
+                  className={`px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 border ${
+                    given_name === "" ? "border-red-600" : "border-green-600"
+                  }`}
                   placeholder="Nombre"
                   name="given_name"
                   value={given_name}
@@ -96,7 +99,9 @@ const Register = () => {
                 <input
                   type="text"
                   id="inputFamilyName"
-                  className={`px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 border ${family_name === '' ? 'border-red-600' : 'border-green-600'}`}
+                  className={`px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 border ${
+                    family_name === "" ? "border-red-600" : "border-green-600"
+                  }`}
                   placeholder="Apellido"
                   name="family_name"
                   value={family_name}
@@ -114,7 +119,9 @@ const Register = () => {
                 <input
                   id="inputEmail"
                   type="email"
-                  className={`px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 border ${email === '' ? 'border-red-600' : 'border-green-600'}`}
+                  className={`px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 border ${
+                    email === "" ? "border-red-600" : "border-green-600"
+                  }`}
                   placeholder="Email"
                   name="email"
                   value={email}
@@ -130,7 +137,9 @@ const Register = () => {
                 </label>
                 <input
                   type="number"
-                  className={`px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 border ${telefono === '' ? 'border-red-600' : 'border-green-600'}`}
+                  className={`px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 border ${
+                    telefono === "" ? "border-red-600" : "border-green-600"
+                  }`}
                   id="inputPhone"
                   placeholder="123456789"
                   name="telefono"
@@ -149,7 +158,11 @@ const Register = () => {
                 </label>
                 <input
                   type="password"
-                  className={`px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 border ${password.length === 0 || password.length <= 5 ? 'border-red-600' : 'border-green-600'}`}
+                  className={`px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 border ${
+                    password.length === 0 || password.length <= 5
+                      ? "border-red-600"
+                      : "border-green-600"
+                  }`}
                   placeholder="Contraseña"
                   name="password"
                   value={password}
@@ -173,7 +186,7 @@ const Register = () => {
                   </span>
                 </label>
               </div>
-              {error && <Error msg={msgError}/>}
+              {error && <Error msg={msgError} />}
               <div className="text-center mt-6">
                 <button
                   className="bg-gray-900 text-white active:bg-gray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 w-full ease-linear transition-all duration-150 mb-5"

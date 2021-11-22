@@ -27,15 +27,15 @@ const FavoriteItems = () => {
               <div className="w-16">
                 <img src={Emoji} alt="sad face" />
               </div>
-              <span className="inline text-gray-500 text-xl my-5">
+              <span className="inline text-center text-gray-500 text-xl my-5">
                 Perdon, parece que no tenes ningun producto en favoritos!
               </span>
 
               <Link
                 to="/productos"
-                className="text-gray-500 font-mono text-xl inline bg-gray-200 p-3 rounded-md hover:shadow-md"
+                className="text-gray-500 text-xl inline bg-gray-200 p-3 rounded-md hover:shadow-md"
               >
-                Agregar uno!
+                Agregar
               </Link>
             </div>
           </div>

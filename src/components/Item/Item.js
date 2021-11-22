@@ -10,6 +10,7 @@ const Item = ({ item }) => {
   const {itemsFav, toggleFavItem} = useFavoriteContext()
   const [fav, setFav] = useState(itemsFav.some(item => item.id === id))
 
+
   
   const toggleFav = () => {
     toggleFavItem(item)

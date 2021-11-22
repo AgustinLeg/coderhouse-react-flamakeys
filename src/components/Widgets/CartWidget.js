@@ -6,21 +6,21 @@ import { faShoppingBag, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useCartContext } from "../../context/cartContext";
 import { toggleCart } from "../../helpers";
 
-import CartItem from "../CartItem/CartItem";
-import CartActions from "../CartActions/CartActions";
+import CartItem from "../Cart/CartItem";
+import CartActions from "../Cart/CartActions";
 import LinkButton from "../Stateless/Buttons/LinkButton";
-const CartWidget = ({ path }) => {
+const CartWidget = () => {
   const { items, total, cantidad, removeItem, clearCart } = useCartContext();
 
   return (
     <div className="cart flex items-center mr-3">
       <button
-        className="flex items-center hover:text-red-600"
+        className="flex items-center hover:text-yellow-600 mb-1"
         onClick={toggleCart}
       >
         <FontAwesomeIcon icon={faShoppingBag}></FontAwesomeIcon>
         {cantidad > 0 && (
-          <span className="flex absolute -mt-5 ml-3">
+          <span className="flex absolute -mt-8 ml-3">
             <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-red-400 opacity-75"></span>
             <p className="relative inline-flex rounded-full h-5 w-5 bg-red-500">
               <span className="text-white text-xs m-auto">{cantidad}</span>

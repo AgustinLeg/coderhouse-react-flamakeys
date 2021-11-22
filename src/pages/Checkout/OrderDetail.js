@@ -5,7 +5,6 @@ import useFormatPrice from "../../hooks/useFormatPrice";
 
 const OrderDetail = () => {
   const { order } = useCartContext();
-  console.log(order)
   let items = [];
   let total;
   if (order) {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CartItem from "../../components/CartItem/CartItem";
+import CartItem from "../../components/Cart/CartItem";
 import { useCartContext } from "../../context/cartContext";
 import useFormatPrice from "../../hooks/useFormatPrice";
 

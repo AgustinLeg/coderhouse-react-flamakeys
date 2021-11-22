@@ -9,7 +9,7 @@ const UserProvider = ({ children }) => {
   const { currentUser } = useAuthContext();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState(null);
 
   useEffect(() => {
     const db = getFirestore();

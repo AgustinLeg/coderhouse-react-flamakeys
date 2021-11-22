@@ -7,9 +7,12 @@ import { NavLink } from "react-router-dom";
 import { toggleCart, toggleNav } from "../../helpers";
 import useCategories from "../../hooks/useCategories";
 
-import CartWidget from "../CartWidget/CartWidget";
-import UserWidget from "../UserWidget/UserWidget";
-import FavWidget from "../FavWidget/FavWidget";
+import CartWidget from "../Widgets/CartWidget";
+import UserWidget from "../Widgets/UserWidget";
+import FavWidget from "../Widgets/FavWidget";
+
+import Logo from '../../assets/flama-logo.svg'
+
 
 const NavBar = () => {
   const { categories } = useCategories();
@@ -20,13 +23,12 @@ const NavBar = () => {
         <>
           <section className="relative mx-auto">
             <nav className="flex justify-between bg-white text-gray-900 w-screen md:px-2">
-              <div className="md:px-5 xl:px-12 py-4 flex w-full items-center">
+              <div className="md:px-5 xl:px-12 flex w-full items-center lg:items-end">
                 <NavLink
                   exact
                   to="/"
-                  className="text-3xl font-bold font-heading"
                 >
-                  FlamaKeys
+                  <img src={Logo} alt="logo FlamaKeys" className="h-16" />
                 </NavLink>
 
                 <ul className="md:flex mx-auto font-heading space-x-12">
@@ -45,7 +47,7 @@ const NavBar = () => {
                           className="fs-4 mx-2 d-block"
                         ></FontAwesomeIcon>
                       </button>
-                      <div className="nav__conatiner w-full lg:pr-10 flex justify-start flex-col lg:flex-row h-full pb-10 lg:pb-0">
+                      <div className="nav__conatiner w-full lg:pr-10 flex justify-start flex-col lg:flex-row h-full pb-10 lg:pb-2 ">
                         {categories.map((cat) => (
                           <li key={cat.id}>
                             <NavLink
@@ -55,8 +57,8 @@ const NavBar = () => {
                                   ? "/productos"
                                   : `/categoria/${cat.key}`
                               }
-                              className="block lg:inline-block px-2 lg:mx-4 my-5 lg:my-0 hover:text-red-500"
-                              activeClassName="text-red-500 lg:border-b-4 border-red-500"
+                              className="block lg:inline-block px-2 lg:mx-4 my-5 lg:my-0 hover:text-yellow-500"
+                              activeClassName="text-yellow-500 lg:border-b-4 border-yellow-500"
                               onClick={toggleNav}
                             >
                               {cat.nombre}
@@ -68,12 +70,12 @@ const NavBar = () => {
                   </div>
                 </ul>
               </div>
-              <div className="flex items-center justify-between text-xl pr-0 md:pr-5">
+              <div className="flex items-end justify-between text-2xl pr-0 md:pr-5 pb-2">
                 <CartWidget />
                 <FavWidget />
                 <UserWidget />
                 <button
-                  className="lg:hidden navbar-burger self-center text-2xl mr-5 md:mr-5 "
+                  className="lg:hidden navbar-burger text-2xl mr-5 md:mr-5 "
                   onClick={toggleNav}
                 >
                   <FontAwesomeIcon

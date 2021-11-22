@@ -1,5 +1,5 @@
 # FlamaKeys
-Este es el proyecto final de Coderhouse. Es un E-commerce construido con ReactJS.
+Este es el proyecto final de [Coderhouse](https://www.coderhouse.com/). E-commerce construido con ReactJS.
 #### [VER DEMO](https://coderhouse-react-flamakeys.vercel.app/)
 
 Que puedo hacer en FlamaKeys.
@@ -15,12 +15,12 @@ Estas son las dependencias que me ayudaron a completar este desafio.
 
 | Plugin | README |
 | ------ | ------ |
-| [ReactJS](https://reactjs.org/) | [Libreria principal del proyecto] |
-| [React Router DOM ](https://v5.reactrouter.com/web/guides/quick-start) | [Navegacion del sitio] |
-| [Firebase](https://firebase.google.com/) | [Base de datos] |
-| [TailwindCSS](https://tailwindcss.com/) | [Estilos y maquetacion del sitio]|
-| [Craco](https://www.npmjs.com/package/@craco/craco)| [Dependencia de TailwindCSS] |
-| [SweetAlert2](https://sweetalert2.github.io/) | [Manejador de alertas]|
+| [ReactJS](https://reactjs.org/) | Libreria principal del proyecto |
+| [React Router DOM ](https://v5.reactrouter.com/web/guides/quick-start) | Navegacion del sitio |
+| [Firebase](https://firebase.google.com/) | Base de datos |
+| [TailwindCSS](https://tailwindcss.com/) | Estilos y maquetacion del sitio|
+| [Craco](https://www.npmjs.com/package/@craco/craco)| Dependencia de TailwindCSS |
+| [SweetAlert2](https://sweetalert2.github.io/) | Manejador de alertas|
 | [FontAwesome](https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react)| [Iconos] |
 
 

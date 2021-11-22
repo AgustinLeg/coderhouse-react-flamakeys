@@ -23,7 +23,7 @@ const NavBar = () => {
         <>
           <section className="relative mx-auto">
             <nav className="flex justify-between bg-white text-gray-900 w-screen md:px-2">
-              <div className="md:px-5 xl:px-12 flex w-full items-center lg:items-end">
+              <div className="md:px-5 flex w-full items-center lg:items-end">
                 <NavLink
                   exact
                   to="/"
@@ -48,6 +48,17 @@ const NavBar = () => {
                         ></FontAwesomeIcon>
                       </button>
                       <div className="nav__conatiner w-full lg:pr-10 flex justify-start flex-col lg:flex-row h-full pb-10 lg:pb-2 ">
+                      <li>
+                            <NavLink
+                              exact
+                              to="/productos"
+                              className="block lg:inline-block px-2 lg:mx-4 my-5 lg:my-0 hover:text-yellow-500"
+                              activeClassName="text-yellow-500 lg:border-b-4 border-yellow-500"
+                              onClick={toggleNav}
+                            >
+                              Todos los productos
+                            </NavLink>
+                          </li>
                         {categories.map((cat) => (
                           <li key={cat.id}>
                             <NavLink

@@ -117,7 +117,7 @@ const UserInfo = ({ callback, btnText }) => {
                 />
 
                 {values.telefono === "" && user ? (
-                  <span class="text-sm mx-2">
+                  <span className="text-sm mx-2">
                     No contamos con tu numero de celular
                   </span>
                 ) : null}

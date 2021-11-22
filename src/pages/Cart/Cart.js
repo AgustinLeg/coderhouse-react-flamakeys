@@ -15,7 +15,6 @@ const Cart = () => {
   return (
     <div className="container mx-auto">
       <Link
-        exact
         to="/productos"
         className="flex font-semibold text-red-600 text-sm mt-10 ml-5"
       >
@@ -100,7 +99,7 @@ const Cart = () => {
               <span>{useFormatPrice(total)}</span>
             </div>
             <button className="bg-gray-900 font-semibold hover:bg-gray-800  text-sm text-white uppercase w-full" type="button">
-              <Link exact to="/finalizar-compra" className="w-100 py-3 block">
+              <Link to="/finalizar-compra" className="w-100 py-3 block">
                 Finalizar Compra
               </Link>
             </button>

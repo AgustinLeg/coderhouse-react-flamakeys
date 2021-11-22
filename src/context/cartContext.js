@@ -1,4 +1,6 @@
 import React, { useState, createContext, useContext, useEffect } from "react";
+// import firebase from "firebase";
+// import { getFirestore } from "../services/getFirebase";
 
 const CartContext = createContext();
 export const useCartContext = () => useContext(CartContext);
@@ -10,6 +12,7 @@ const CartProvider = ({ children }) => {
   const [order, setOrder] = useState(null);
   const [total, setTotal] = useState(0);
   const [cantidad, setCantidad] = useState(0)
+
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(items));
@@ -62,7 +65,6 @@ const CartProvider = ({ children }) => {
   };
 
 
-
   return (
     <CartContext.Provider
       value={{
@@ -70,10 +72,12 @@ const CartProvider = ({ children }) => {
         order,
         total,
         cantidad,
+        // errorCheckout,
         setOrder,
         addItem,
         removeItem,
         clearCart,
+        // newOrder
       }}
     >
       {children}

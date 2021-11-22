@@ -36,13 +36,30 @@ const Home = () => {
                   Productos
                 </h2>
                 <div className="grid gap-6 grid-cols-1 relative md:grid-cols-2 mt-6 mx-auto max-w-5xl">
+                <div
+                      className="card bg-gray-100 relative z-0 py-10 md:py-0"
+                    >
+                      <Link
+                        to="/productos"
+                        className="text-gray-800"
+                      >
+                        <img
+                          src={catImages(`./productos.png`)}
+                          className="w-full mx-auto"
+                          alt={`foto producto de todos los productos`}
+                        />
+                        <div className="absolute w-full pb-2 h-full top-0 left-0 flex justify-center items-end">
+                          <h5 className="font-bold text-2xl">Todos los productos</h5>
+                        </div>
+                      </Link>
+                    </div>
                   {categories.map((cat) => (
                     <div
                       key={cat.id}
                       className="card bg-gray-100 relative z-0 py-10 md:py-0"
                     >
                       <Link
-                        to={`categoria/${cat.key}`}
+                        to={`/categoria/${cat.key}`}
                         className="text-gray-800"
                       >
                         <img

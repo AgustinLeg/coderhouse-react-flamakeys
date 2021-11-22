@@ -97,7 +97,7 @@ const UserOrders = () => {
       >
         <>
           {templatedata.map((item) => (
-            <div key={item.id} className="flex justify-between mt-6">
+            <div key={item.id} className="flex justify-between mt-2">
               <div className="flex">
                 <img
                   className="h-20 w-20 object-cover rounded"

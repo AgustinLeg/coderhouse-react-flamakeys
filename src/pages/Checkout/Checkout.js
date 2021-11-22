@@ -1,26 +1,28 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router";
+import { Link, useHistory} from "react-router-dom";
+
 import { useCartContext } from "../../context/cartContext";
+import { useAuthContext } from "../../context/authContext";
+
 import useFormatPrice from "../../hooks/useFormatPrice";
-import { Link } from "react-router-dom";
+import useNewOrder from "../../hooks/useNewOrder";
+import useForm from "../../hooks/useForm";
+
 import MiniCartItem from "../../components/Cart/MiniCartItem";
 import UserInfo from "../User/components/UserInfo";
-import useNewOrder from "../../hooks/useNewOrder";
-import { useAuthContext } from "../../context/authContext";
-import useForm from "../../hooks/useForm";
 import { TostMessage } from "../../components/Alerts/Alerts";
 import Spinner from "../../components/Stateless/Spinner/Spinner";
 
 const Checkout = () => {
   const { currentUser } = useAuthContext();
-  const { items, cantidad, total } = useCartContext();
-  const { newOrder } = useNewOrder();
+  const { items, cantidad, total} = useCartContext();
+  const { newOrder, errorCheckout} = useNewOrder();
   const history = useHistory();
   const { clearCart } = useCartContext();
   const { reset } = useForm();
   const [loading, setLoading] = useState(false)
   
-  const handleSubmit =  (values) => {
+  const handleSubmit =  async(values) => {
     setLoading(true)
     const id =  currentUser ? currentUser.uid : null
     newOrder(values,id)
@@ -32,7 +34,7 @@ const Checkout = () => {
       })
       .catch(() => {
         setLoading(false)
-        return TostMessage.fire({icon: "error", title:"Hubo un error vuelve a intentarlo mas tarde"})
+        return TostMessage.fire({icon: "error", title:errorCheckout.msg})
       })
   };
 
@@ -55,10 +57,12 @@ const Checkout = () => {
                   Editar
                 </Link>
               </div>
-              {items.map((item) => (
-                <MiniCartItem item={item} key={item.id} />
-              ))}
-              <h3 className="text-gray-700 font-medium mt-10">
+              {items.map((item) => {
+                const sinStock =errorCheckout.items.some(error => error.id === item.id)
+                return <MiniCartItem item={item} key={item.id} sinStock={sinStock}/>
+              }
+              )}
+              <h3 className="text-gray-700 font-medium mt-10 text-center">
                 Total: {useFormatPrice(total)}
               </h3>
             </div>

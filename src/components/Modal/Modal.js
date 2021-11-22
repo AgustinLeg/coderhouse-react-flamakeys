@@ -12,7 +12,7 @@ const Modal = ({ children, titulo, showModal, closeModal }) => {
       id="modal"
     >
       <div
-        className={`absolute w-full max-w-lg p-5 mx-auto my-auto rounded-xl shadow-lg  bg-white transition duration-300 ${
+        className={`absolute w-full max-h-96 overflow-y-auto max-w-lg p-5 mx-auto my-auto rounded-xl shadow-lg  bg-white transition duration-300 ${
           showModal ? "scale-1" : "scale-0"
         }`}
       >
@@ -24,8 +24,7 @@ const Modal = ({ children, titulo, showModal, closeModal }) => {
             </button>
           </div>
         )}
-
-        {children}
+        <div className="w-full h-full overflow-y-auto bg-white ">{children}</div>
       </div>
     </div>
   );

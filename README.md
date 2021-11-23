@@ -10,10 +10,9 @@ Que puedo hacer en FlamaKeys.
 - Agregar y Comprar productos.
 
 ## Dependencias
-
 Estas son las dependencias que me ayudaron a completar este desafio.
 
-| Plugin | README |
+| Nombre | Uso |
 | ------ | ------ |
 | [ReactJS](https://reactjs.org/) | Libreria principal del proyecto |
 | [React Router DOM ](https://v5.reactrouter.com/web/guides/quick-start) | Navegacion del sitio |

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Badge, Button, Card } from 'flowbite-react'
 
-import { addProduct } from '../../features/cart/cartSlice'
+import { addProduct } from '@/features/cart/cartSlice'
 
 export const ProductCard = ({ product }) => {
   const { image, name, slug, price, discount } = product

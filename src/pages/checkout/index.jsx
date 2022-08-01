@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 
-import { CartItem } from '../../components/cart'
+import { CartItem } from '@/components/cart'
 
 export const CheckoutPage = () => {
   const { products, total, totalOfItems } = useSelector((state) => state.cart)

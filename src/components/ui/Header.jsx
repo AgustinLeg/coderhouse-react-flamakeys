@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom'
 import { Navbar } from 'flowbite-react'
 
-import { NAV_ITEMS } from '../../assets/navItems'
+import { NAV_ITEMS } from '@/assets/navItems'
+
 import { CartDrawer } from '../cart'
 
 import { UserMenu } from './UserMenu'

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, TextInput } from 'flowbite-react'
 
-import { updateProduct } from '../../features/cart/cartSlice'
+import { updateProduct } from '@/features/cart/cartSlice'
 
 const product = {
   id: 1,

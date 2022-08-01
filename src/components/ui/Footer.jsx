@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Footer } from 'flowbite-react'
 
-import { NAV_ITEMS } from '../../assets/navItems'
+import { NAV_ITEMS } from '@/assets/navItems'
 
 export const FooterComponent = () => {
   return (

@@ -4,7 +4,7 @@ import {
   addProduct,
   decrementProduct,
   updateProduct,
-} from '../../features/cart/cartSlice'
+} from '@/features/cart/cartSlice'
 
 export const CartItem = ({ product }) => {
   const { image, name, price, quantity } = product

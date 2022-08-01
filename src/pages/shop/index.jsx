@@ -1,6 +1,6 @@
 import { Button } from 'flowbite-react'
 
-import { ProductCard } from '../../components/product'
+import { ProductCard } from '@/components/product'
 
 const products = [
   {

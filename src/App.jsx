@@ -1,13 +1,14 @@
 import { Route, Routes } from 'react-router-dom'
 
-import { ProtectedRoute } from './components/protectedRoute'
-import { FooterComponent, Header } from './components/ui'
-import { NotFoundPage } from './pages/404'
+import { ProtectedRoute } from '@/components/protectedRoute'
+import { FooterComponent, Header } from '@/components/ui'
+
 import {
   AboutPage,
   CheckoutPage,
   HomePage,
   LoginPage,
+  NotFoundPage,
   ProductPage,
   ProfilePage,
   RegisterPage,

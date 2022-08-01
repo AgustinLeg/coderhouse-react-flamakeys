@@ -42,7 +42,7 @@ export const CartDrawer = () => {
               </div>
               <div className="flex flex-col gap-5">
                 <button
-                  className="w-full py-1 border-red-500 border text-red-500 rounded-md"
+                  className="w-full py-1 border-blue-700 border text-blue-700 rounded-md"
                   onClick={() => dispatch(clearCart())}
                 >
                   Vaciar carrito
@@ -53,7 +53,7 @@ export const CartDrawer = () => {
                 </div>
                 <Link
                   to="/finalizar-compra"
-                  className="bg-primary w-full rounded-md py-2 text-center text-white"
+                  className="bg-blue-700 w-full rounded-md py-2 text-center text-white"
                   onClick={onToggle}
                 >
                   Finalizar compra

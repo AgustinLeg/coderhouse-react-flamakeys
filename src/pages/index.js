@@ -1,3 +1,7 @@
+export * from './404'
+export * from './about'
+export * from './auth/Login'
+export * from './auth/Register'
 export * from './checkout'
 export * from './home'
 export * from './product'

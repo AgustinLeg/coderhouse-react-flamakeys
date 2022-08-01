@@ -1,3 +1,5 @@
+import { Button } from 'flowbite-react'
+
 import { ProductCard } from '../../components/product'
 
 const products = [
@@ -42,9 +44,9 @@ export const ShopPage = () => {
     <section>
       <div className="flex w-full justify-between my-5">
         <h2 className="text-xl font-bold">Todos los productos</h2>
-        <button>Filtros</button>
+        <Button color="light">Filtros</Button>
       </div>
-      <div className="flex gap-5 flex-wrap justify-center">
+      <div className="flex gap-5 flex-wrap md:justify-start justify-center">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

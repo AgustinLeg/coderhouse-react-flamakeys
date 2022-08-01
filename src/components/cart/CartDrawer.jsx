@@ -1,9 +1,10 @@
 import { RiShoppingBag3Line } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { clearCart } from '../../features/cart/cartSlice'
 import { useDisclosure } from '../../hooks/useDisclosure'
-import { Drawer } from '../ui/Drawer'
+import { Drawer } from '../ui'
 
 import { CartItem } from './CartItem'
 
@@ -15,7 +16,7 @@ export const CartDrawer = () => {
   return (
     <>
       <button
-        className="flex justify-center align-center rounded-lg"
+        className="flex justify-center align-center rounded-lg w-12"
         onClick={onToggle}
       >
         <RiShoppingBag3Line size={22} />
@@ -31,7 +32,7 @@ export const CartDrawer = () => {
           )}
           {!!products.length && (
             <div className="flex flex-col h-full">
-              <div className="flex-1 flex flex-col">
+              <div className="flex-1 flex flex-col mt-5">
                 {products.map((product) => (
                   <CartItem
                     key={`cart-product-${product.id}`}
@@ -50,6 +51,13 @@ export const CartDrawer = () => {
                   <p>Total:</p>
                   <p>${total}</p>
                 </div>
+                <Link
+                  to="/finalizar-compra"
+                  className="bg-primary w-full rounded-md py-2 text-center text-white"
+                  onClick={onToggle}
+                >
+                  Finalizar compra
+                </Link>
               </div>
             </div>
           )}

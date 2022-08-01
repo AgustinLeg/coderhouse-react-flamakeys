@@ -6,6 +6,7 @@ import {
   clearCart,
   decrementProduct,
   removeProduct,
+  updateProduct,
 } from './cartSlice'
 
 export const cartMiddleware = createListenerMiddleware()
@@ -28,6 +29,13 @@ cartMiddleware.startListening({
 })
 cartMiddleware.startListening({
   actionCreator: removeProduct,
+  effect: (_, listenerApi) => {
+    listenerApi.dispatch(calcTotal())
+    localStorage.setItem('cart', JSON.stringify(listenerApi.getState().cart))
+  },
+})
+cartMiddleware.startListening({
+  actionCreator: updateProduct,
   effect: (_, listenerApi) => {
     listenerApi.dispatch(calcTotal())
     localStorage.setItem('cart', JSON.stringify(listenerApi.getState().cart))

@@ -1,6 +1,7 @@
-import { RiShoppingBag3Line } from 'react-icons/ri'
+import toast, { Toaster } from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { Badge, Button, Card } from 'flowbite-react'
 
 import { addProduct } from '../../features/cart/cartSlice'
 
@@ -9,28 +10,49 @@ export const ProductCard = ({ product }) => {
 
   const dispatch = useDispatch()
 
+  const addToCart = () => {
+    dispatch(addProduct(product))
+    toast('Producto agregado al carrito', {
+      position: 'bottom-center',
+      duration: 2000,
+    })
+  }
+
   return (
-    <div className="flex flex-col gap-5 relative max-w-xs rounded-3xl bg-white pb-4">
-      <Link
-        to={`/productos/${slug}`}
-        className="absolute w-full h-full top-0 left-0 z-10"
-      />
-      <img src={image} alt={name} className="rounded-t-3xl" />
-      <div className="p-2">
-        <p className="font-bold">{name}</p>
-        <span className="font-bold">${price}</span>
-      </div>
-      <button
-        className="absolute top-2 right-2 flex justify-center align-center bg-white p-2 rounded-lg z-20"
-        onClick={() => dispatch(addProduct(product))}
-      >
-        <RiShoppingBag3Line size={24} />
-      </button>
+    <div className="max-w-xs relative">
       {!!discount && (
-        <span className="absolute top-2 left-2 flex justify-center align-center bg-primary py-1 px-2 rounded-lg text-xs">
-          - {discount}%
+        <span className="absolute top-2 left-2">
+          <Badge color="info">- {discount}%</Badge>
         </span>
       )}
+      <Link
+        to={`/productos/${slug}`}
+        className="absolute h-full w-full top-0 left-0 z-0"
+      />
+      <Card
+        imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
+        imgSrc={image}
+      >
+        <a href="#">
+          <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+            {name}
+          </h5>
+        </a>
+        <span className="text-3xl font-bold text-gray-900 dark:text-white">
+          ${discount ? price - price * (discount / 100) : price}
+          {!!discount && (
+            <span className="text-2xl font-bold text-gray-400 ml-2 line-through">
+              ${price}
+            </span>
+          )}
+        </span>
+        <div className="relative h-12">
+          <div className="absolute z-10">
+            <Button onClick={addToCart}>Agregar al carrito</Button>
+          </div>
+        </div>
+      </Card>
+      <Toaster />
     </div>
   )
 }

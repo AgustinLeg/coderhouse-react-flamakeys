@@ -10,7 +10,7 @@ export const Drawer = ({ isOpen, toggleMenu, children }) => {
         onClick={toggleMenu}
       />
       <div
-        className={`navbar w-64 fixed overflow-x-scroll bg-white z-50 top-0 right-0 h-screen ${
+        className={`navbar w-full md:w-72 fixed overflow-x-scroll bg-white z-50 top-0 right-0 h-screen ${
           isOpen ? 'navbar-open' : 'navbar-close'
         }`}
       >

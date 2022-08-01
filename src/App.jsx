@@ -1,30 +1,43 @@
 import { Route, Routes } from 'react-router-dom'
 
-import { PrivateRoute } from './components/privateRoute'
-import { Header } from './components/ui'
+import { ProtectedRoute } from './components/protectedRoute'
+import { FooterComponent, Header } from './components/ui'
+import { NotFoundPage } from './pages/404'
 import {
+  AboutPage,
   CheckoutPage,
   HomePage,
+  LoginPage,
   ProductPage,
   ProfilePage,
+  RegisterPage,
   ShopPage,
 } from './pages'
 
 function App() {
   return (
     <div className=" bg-secondary min-h-screen max-w-screen overflow-x-hidden">
-      <div className="container max-w-5xl font-display p-2 m-auto">
+      <div className="container max-w-5xl p-2 m-auto pb-24">
         <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/productos" element={<ShopPage />} />
-          <Route path="/productos/:term" element={<ProductPage />} />
-          <Route path="/finalizar-compra" element={<CheckoutPage />} />
-          <Route element={<PrivateRoute />}>
-            <Route path="/perfil" element={<ProfilePage />} />
-          </Route>
-        </Routes>
+        <main className="pb-14">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/productos" element={<ShopPage />} />
+            <Route path="/productos/:term" element={<ProductPage />} />
+            <Route path="/acerca-nosotros" element={<AboutPage />} />
+            <Route path="/finalizar-compra" element={<CheckoutPage />} />
+            <Route
+              element={<ProtectedRoute redirectedPath="/iniciar-sesion" />}
+            >
+              <Route path="/perfil" element={<ProfilePage />} />
+              <Route path="/iniciar-sesion" element={<LoginPage />} />
+              <Route path="/crear-cuenta" element={<RegisterPage />} />
+            </Route>
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </main>
       </div>
+      <FooterComponent />
     </div>
   )
 }

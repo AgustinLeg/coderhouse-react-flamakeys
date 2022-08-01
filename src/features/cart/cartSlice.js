@@ -20,7 +20,7 @@ export const cartSlice = createSlice({
         return
       }
 
-      state.products.push(action.payload)
+      state.products.push({ ...action.payload, quantity: 1 })
     },
     decrementProduct: (state, action) => {
       const product = state.products.find(

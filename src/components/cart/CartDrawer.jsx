@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { clearCart } from '../../features/cart/cartSlice'
-import { useDisclosure } from '../../hooks/useDisclosure'
+import { useDisclosure } from '../../hooks'
 import { Drawer } from '../ui'
 
 import { CartItem } from './CartItem'

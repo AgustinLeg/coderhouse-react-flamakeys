@@ -1,23 +1,49 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { Button, Spinner } from 'flowbite-react'
 
 import { CartItem } from '@/components/cart'
+
+import { clearCart } from '../../features/cart/cartSlice'
+import { shopAPI } from '../../services/api'
 
 export const CheckoutPage = () => {
   const { products, total, totalOfItems } = useSelector((state) => state.cart)
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { errors, isDirty, isSubmitting },
   } = useForm()
+  const [error, setError] = useState(false)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (payload) => {
+    try {
+      setError(false)
+      await shopAPI.post('/order', {
+        shippingAddress: payload,
+        orderItems: products,
+        numberOfItems: totalOfItems,
+        total,
+      })
+      navigate('/perfil')
+      dispatch(clearCart())
+    } catch (error) {
+      setError(true)
+    }
   }
 
   return (
     <section className="py-10">
       <h2 className="text-xl font-bold">Finalizar Compra</h2>
+      {error && (
+        <div className="w-full bg-red-400 text-center p-5">
+          <p>Error al finalizar la compra</p>
+        </div>
+      )}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-10"
@@ -210,12 +236,12 @@ export const CheckoutPage = () => {
             <p>Total:</p>
             <p>${total}</p>
           </div>
-          <button
-            className="bg-primary w-full rounded-md py-2 text-center text-white disabled:opacity-80 disabled:cursor-not-allowed"
-            disabled={!isDirty}
-          >
-            Finalizar compra
-          </button>
+          <div className="flex justify-center">
+            <Button type="submit" disabled={!isDirty}>
+              {isSubmitting && <Spinner size="sm" light={true} />}
+              Finalizar compra
+            </Button>
+          </div>
         </div>
       </form>
     </section>

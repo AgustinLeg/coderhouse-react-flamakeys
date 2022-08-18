@@ -1,24 +1,16 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { Button, TextInput } from 'flowbite-react'
 
 import { updateProduct } from '@/features/cart/cartSlice'
 
-const product = {
-  id: 1,
-  name: 'Producto 1',
-  slug: 'producto-1',
-  image:
-    'https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-  description:
-    'Lorem ipsum dolor, sit amet consectetur adipisicing elit. A deserunt veniam eius nulla maiores eaque perspiciatis obcaecati quis ut harum corporis, ducimus libero vero maxime at sequi reiciendis magni laudantium.',
-  price: 5000,
-  stock: 10,
-  discount: 10,
-}
+import { useGet } from '../../hooks/useGet'
 
 export const ProductPage = () => {
-  const { image, name, price, discount, description } = product
+  const { term } = useParams()
+  const { data } = useGet(`products/${term}`)
+  const { image, name, price, discount, description } = data || {}
 
   const [quantity, setQuantity] = useState(1)
 
@@ -59,7 +51,7 @@ export const ProductPage = () => {
             onClick={() =>
               dispatch(
                 updateProduct({
-                  ...product,
+                  ...data,
                   quantity,
                 })
               )

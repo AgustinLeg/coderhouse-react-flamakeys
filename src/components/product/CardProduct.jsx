@@ -6,7 +6,7 @@ import { Badge, Button, Card } from 'flowbite-react'
 import { addProduct } from '@/features/cart/cartSlice'
 
 export const ProductCard = ({ product }) => {
-  const { image, name, slug, price, discount } = product
+  const { image, title, id, price, discount } = product
 
   const dispatch = useDispatch()
 
@@ -26,16 +26,13 @@ export const ProductCard = ({ product }) => {
         </span>
       )}
       <Link
-        to={`/productos/${slug}`}
+        to={`/producto/${id}`}
         className="absolute h-full w-full top-0 left-0 z-0"
       />
-      <Card
-        imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-        imgSrc={image}
-      >
+      <Card imgAlt={name} imgSrc={image}>
         <a href="#">
           <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-            {name}
+            {title}
           </h5>
         </a>
         <span className="text-3xl font-bold text-gray-900 dark:text-white">

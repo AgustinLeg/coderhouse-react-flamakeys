@@ -1,20 +1,35 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Button, Card, TextInput } from 'flowbite-react'
+import { Button, Card, Spinner, TextInput } from 'flowbite-react'
+import Cookies from 'js-cookie'
+
+import { setCredentials } from '../../features/user/authSlice'
+import { shopAPI } from '../../services/api'
 
 export const LoginPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm()
+  const [error, setError] = useState(false)
+  const dispatch = useDispatch()
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (payload) => {
+    try {
+      setError(false)
+      const { data } = await shopAPI.post('/auth/login', payload)
+      Cookies.set('token', data.token)
+      dispatch(setCredentials(data))
+    } catch (error) {
+      setError(true)
+    }
   }
 
   return (
-    <div className="max-w-xs m-auto mt-16">
+    <div className="max-w-md m-auto mt-16">
       <h2 className="font-bold text-2xl text-center mb-5">Iniciar Sesion</h2>
       <Card>
         <form
@@ -64,11 +79,16 @@ export const LoginPage = () => {
               </span>
             )}
           </div>
-          {/* <div className="flex items-center gap-2">
-            <Label htmlFor="remember">Remember me</Label>
-          </div> */}
-          <Button type="submit">Inicar Sesion</Button>
+          <Button type="submit">
+            {isSubmitting && <Spinner size="sm" light={true} />}
+            Inicar Sesion
+          </Button>
         </form>
+        {error && (
+          <div className="w-full bg-red-400 text-center p-5">
+            <p>Error al crear la cuenta</p>
+          </div>
+        )}
         <div className="flex flex-col justify-center items-center">
           <p className="text-sm">¿Nuevo en FlamaKeys?</p>
           <Link to="/crear-cuenta" className="text-sm text-blue-700">

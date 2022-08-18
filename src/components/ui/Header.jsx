@@ -24,7 +24,7 @@ export const Header = () => {
       </div>
       <Navbar.Collapse>
         {NAV_ITEMS.map(({ ref, name }) => (
-          <NavLink key={`footer-link-${ref}`} to={ref}>
+          <NavLink key={`header-link-${ref}`} className="p-3 " to={ref}>
             {name}
           </NavLink>
         ))}

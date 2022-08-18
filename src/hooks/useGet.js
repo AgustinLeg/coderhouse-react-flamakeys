@@ -8,15 +8,18 @@ export const useGet = (url) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    try {
-      setIsLoading(true)
-      const { data } = shopAPI.get(`/${url}`)
-      setData(data)
-    } catch (error) {
-      setError(error)
-    } finally {
-      setIsLoading(false)
+    const getData = async () => {
+      try {
+        setIsLoading(true)
+        const { data } = await shopAPI.get(`/${url}`)
+        setData(data)
+      } catch (error) {
+        setError(error)
+      } finally {
+        setIsLoading(false)
+      }
     }
+    getData()
   }, [url])
 
   return { data, error, isLoading }

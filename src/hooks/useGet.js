@@ -12,6 +12,10 @@ export const useGet = (url) => {
       try {
         setIsLoading(true)
         const { data } = await shopAPI.get(`/${url}`)
+        if (!data) {
+          setError(true)
+          throw new Error('no data')
+        }
         setData(data)
       } catch (error) {
         setError(error)

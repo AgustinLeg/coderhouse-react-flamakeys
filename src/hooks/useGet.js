@@ -18,7 +18,8 @@ export const useGet = (url) => {
         }
         setData(data)
       } catch (error) {
-        setError(error)
+        setError(true)
+        // setData([])
       } finally {
         setIsLoading(false)
       }

@@ -86,7 +86,7 @@ export const LoginPage = () => {
         </form>
         {error && (
           <div className="w-full bg-red-400 text-center p-5">
-            <p>Error al crear la cuenta</p>
+            <p>Error al iniciar sesion</p>
           </div>
         )}
         <div className="flex flex-col justify-center items-center">

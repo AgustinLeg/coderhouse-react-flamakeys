@@ -22,6 +22,9 @@ export const HomePage = () => {
           ))}
 
         {!isLoading && error && <p>Error al obtener los productos</p>}
+        {!isLoading && !error && !data?.length && (
+          <p>Wow parece que todavia no tenemos productos para mostrar</p>
+        )}
       </div>
     </section>
   )

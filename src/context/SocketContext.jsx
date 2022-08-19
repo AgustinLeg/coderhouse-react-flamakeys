@@ -7,10 +7,11 @@ import { scrollToBottomAnimated } from '../utils'
 
 export const SocketContext = createContext()
 
+const { VITE_APP_API } = import.meta.env
+
 export const SocketProvider = ({ children }) => {
-  const { socket, online, conectarSocket, desconectarSocket } = useSocket(
-    'http://localhost:8080'
-  )
+  const { socket, online, conectarSocket, desconectarSocket } =
+    useSocket(VITE_APP_API)
   const { user } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
